@@ -109,9 +109,9 @@ function ThreeDTexter(){
 		if (axis == "x") {
 			opts.camera.position.set( 40, 0, 500 );
 
-			opts.mesh.position.y = opts.verticalOffset;
+			opts.mesh.position.y = 0;
 
-			opts.mesh.position.z = -opts.text.options.height / 2;
+			opts.mesh.position.z = -opts.text.options.size / 2;
 
 			opts.mesh.rotation.x = 20;
 			opts.mesh.rotation.y = Math.PI * 2;
