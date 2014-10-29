@@ -177,7 +177,8 @@ function ThreeDTexter(){
 	this.api.capture = function(gif){
 		self.stop();
 
-		var n = 20;
+		var numFrames = 19;
+		var dAngle = 2 * Math.PI / (numFrames + 1);
 
 		var canvas = document.getElementsByTagName('canvas')[0]
 
@@ -186,14 +187,14 @@ function ThreeDTexter(){
 			gif.addFrame(canvas, {copy: true,delay: 100});
 		
 			if (opts.axis == "x") {
-				opts.group.rotation.x += Math.PI / 10;
+				opts.group.rotation.x += dAngle;
 			} else {
-				opts.group.rotation.y += Math.PI / 10;
+				opts.group.rotation.y += dAngle;
 			}
 			render();
 
 			setTimeout(function(){
-				if (n-- > 0){
+				if (numFrames-- > 0){
 					run_capture();
 				} else {
 					gif.render();
