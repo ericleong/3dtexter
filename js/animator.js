@@ -101,8 +101,16 @@ function ThreeDTexter(){
 		opts.text.options.textColor = parseInt($id('primary-color').value.substr(1), 16);
 		opts.text.options.sideColor = parseInt($id('secondary-color').value.substr(1), 16);
 
-		opts.text.options.textMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.textColor, shading: THREE.FlatShading} );
-		opts.text.options.sideMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.sideColor, shading: THREE.FlatShading} );
+		opts.text.options.textMaterial = new THREE.MeshBasicMaterial({
+			color: opts.text.options.textColor,
+			shading: THREE.FlatShading,
+			overdraw: 0.4
+		});
+		opts.text.options.sideMaterial = new THREE.MeshBasicMaterial({
+			color: opts.text.options.sideColor,
+			shading: THREE.FlatShading,
+			overdraw: 0.4
+		});
 	};
 
 	this.setAxis = function(axis) {
@@ -329,10 +337,7 @@ function GifRenderer(){
             frames: this.frames,
             delay: this.delay,
             matte: [255, 255, 255],
-            transparent: [0, 255, 0]
+            transparent: [0, 0, 0]
         });
 	}
-
-	
-
 }
