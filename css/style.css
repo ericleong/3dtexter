@@ -26,7 +26,6 @@ html, body {
 
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 500;
-  margin-bottom: 15px;
 }
 
 #input_text input {
@@ -37,9 +36,9 @@ html, body {
   font-size: 30px;
   line-height: 30px;
   border: none;
-  padding-top: 5px;
   letter-spacing: 1px;
   color: white;
+  height: 100%;
   vertical-align: middle;
 
   display: inline-block;
@@ -76,7 +75,7 @@ html, body {
   height: 60px;
   width: 800px;
   margin-bottom: 30px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 #header {
   width: 300px;
@@ -108,19 +107,21 @@ html, body {
 }
 
 
-#fonts {
-  margin-left: 3px;
+#fonts, #colors {
+  font-size: 0;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 .font {
-  margin-top: 20px;
   height: 150px;
-  width: 125px;
+  width: 15%;
+  margin-left: 2%;
   background: white;
   display: inline-block;
-  margin-left: 2px;
-  margin-right: 2px;
   cursor: pointer;
+}
+.font:first-child {
+  margin-left: 0%;
 }
 
 .text {
@@ -165,15 +166,13 @@ a {
 .form-group {
    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
    height: 200px;
-   width: 350px;
+   width: 49%;
    display: inline-block;
 }
 
 .form-group#primary {
   background-color: #3f6375;
-  margin-right: 50px;
-  margin-left: 23px;
-  margin-bottom: 30px;
+  margin-right: 2%;
 }
 
 .form-group#secondary {
