@@ -236,7 +236,6 @@ function ThreeDTexter(){
 
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
-					// opts.mesh.children[i].rotation.y += opts.rotationRate;
 				}
 			}
 		}
@@ -259,8 +258,14 @@ function ThreeDTexter(){
 		
 			if (opts.axis == "x") {
 				opts.group.rotation.x += dAngle;
-			} else {
+			} else if (opts.axis == "y") {
 				opts.group.rotation.y += dAngle;
+			} else if (opts.axis == "wave") {
+				opts.wavePosition += dAngle;
+
+				for (var i = 0; i < opts.mesh.children.length; i++) {
+					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
+				}
 			}
 			render();
 
