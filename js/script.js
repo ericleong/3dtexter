@@ -47,31 +47,21 @@ $(document).ready( function() {
 				progressLabel.text( "Complete!" );
 			}
 		});
-	});
-});
 
-window.texter = new ThreeDTexter();
-texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
-	color: '#eee' 
-}));
-
-document.getElementById('render').addEventListener('click', function(evt){
-	var gif = new GIF({
-		workers: 5,
-		quality: 8,
-		background: '#fff'
-	});
-		
-	function createImage(data){
-
+		var gif = new GIF({
+			workers: 5,
+			quality: 8,
+			background: '#fff'
+		});
+			
 		gif.on('finished', function(blob, data) {
 
 			window.open(URL.createObjectURL(blob));
 
-			var reader = new FileReader();
-			reader.onload = function(event){
-				createImage(event.target.result); //event.target.results contains the base64 code to create the image.
-			};
+			// var reader = new FileReader();
+			// reader.onload = function(event){
+			// 	createImage(event.target.result); //event.target.results contains the base64 code to create the image.
+			// };
 
 			var base64 = reader.readAsDataURL(blob); //Convert the blob from clipboard to base64
 		});
@@ -81,9 +71,13 @@ document.getElementById('render').addEventListener('click', function(evt){
 		})
 
 		window.texter.api.capture(gif);
-		
-	}
+	});
 });
+
+window.texter = new ThreeDTexter();
+texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
+	color: '#eee' 
+}));
 
 function $id(nm){
 	return document.getElementById(nm);
