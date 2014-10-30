@@ -134,13 +134,20 @@ for (var i = 0; i < font_selects.length; i++){
 	})(font_selects[i]);
 }
 
+var unselect = function() {
+	var selected = $('button.selected').each(function() {
+		this.classList.remove('selected');
+	});
+}
+
 $id('axis_x').addEventListener('click', function(evt){
 	evt.preventDefault();
 
 	if (!this.classList.contains('selected')) {
+		unselect();
 		this.classList.add('selected');
-		$id('axis_y').classList.remove('selected');
 		window.texter.api.setAxis("x");
+		window.texter.api.setText(inputText.value);
 	}
 });
 
@@ -148,9 +155,21 @@ $id('axis_y').addEventListener('click', function(evt){
 	evt.preventDefault();
 
 	if (!this.classList.contains('selected')) {
+		unselect();
 		this.classList.add('selected');
-		$id('axis_x').classList.remove('selected');
 		window.texter.api.setAxis("y");
+		window.texter.api.setText(inputText.value);
+	}
+});
+
+$id('wave').addEventListener('click', function(evt){
+	evt.preventDefault();
+
+	if (!this.classList.contains('selected')) {
+		unselect();
+		this.classList.add('selected');
+		window.texter.api.setAxis("wave");
+		window.texter.api.setText(inputText.value);
 	}
 }); 
 		

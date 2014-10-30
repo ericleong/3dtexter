@@ -23,7 +23,7 @@ function ThreeDTexter(){
 				curveSegments: 5,
 				bevelThickness: 4,
 				bevelSize: 2,
-				bevelEnabled: true,
+				bevelEnabled: false,
 				font: "digital-7",
 				weight: 'normal',
 				textColor: 0xFF0000,
@@ -31,6 +31,8 @@ function ThreeDTexter(){
 			}
 		},
 		targetRotation: 0,
+		wavePosition: 0,
+		waveAngle: Math.PI / 6,
 		rotationRate: Math.PI / 60,
 		rotating: false,
 		axis: "y"
@@ -39,7 +41,7 @@ function ThreeDTexter(){
 	var exports = {};
 
 	this.setup = function(){
-		opts.camera = new THREE.PerspectiveCamera( 60, $('.preview').width() / $('.preview').height(), 50, 1000 );
+		opts.camera = new THREE.PerspectiveCamera( 60, 2, 50, 1000 );
 		opts.camera.position.set( 0, 0, 500 );
 		opts.scene = new THREE.Scene();
 		// add subtle blue ambient lighting
@@ -66,33 +68,73 @@ function ThreeDTexter(){
 		var text3d = new THREE.ExtrudeGeometry( textShapes, opts.text.options );
 		*/
 
-		var text3d = new THREE.TextGeometry(text, opts.text.options);
-
-		text3d.computeBoundingBox();
-		//console.log(text3d.boundingBox);
-
-		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
-		opts.verticalOffset = -0.5 * ( text3d.boundingBox.max.y - text3d.boundingBox.min.y );
-
+		// material
 		this.makeMaterial();
 
 		var materials = [opts.text.options.sideMaterial, opts.text.options.textMaterial];
-
 		var material = new THREE.MeshFaceMaterial(materials);
 
-		opts.mesh = text = new THREE.Mesh( text3d,  material);
+		// text
+		if (opts.axis == "wave") {
+			var width = 0;
+			var text3d = new THREE.Object3D();
 
-		opts.mesh.position.x = centerOffset;
+			for (var i = 0; i < text.length; i++) {
 
-		for (var face in text.geometry.faces) {
-			if (text.geometry.faces[face].normal.z != 0) {
-				text.geometry.faces[face].materialIndex = 1;
+				if (text[i] == ' ') {
+					width += 50;
+
+					continue;
+				}
+
+				var letter3d = new THREE.TextGeometry(text[i], opts.text.options);
+				letter3d.computeBoundingBox();
+
+				var letterWidth = letter3d.boundingBox.max.x - letter3d.boundingBox.min.x;
+				opts.verticalOffset = -0.5 * (letter3d.boundingBox.max.y - letter3d.boundingBox.min.y);
+
+				var mesh = new THREE.Mesh(letter3d,  material);
+				mesh.position.x = width;
+				mesh.position.z = -opts.text.options.height / 2;
+
+				width += letterWidth + 10;
+
+				for (var face in mesh.geometry.faces) {
+					if (mesh.geometry.faces[face].normal.z != 0) {
+						mesh.geometry.faces[face].materialIndex = 1;
+					}
+				}
+
+				text3d.add(mesh);
 			}
+
+			text3d.translateX(-0.5 * width);
+
+			this.setAxis(opts.axis);
+
+			opts.mesh = text3d;
+			opts.text.canvas = text3d;
+		} else {
+			var text3d = new THREE.TextGeometry(text, opts.text.options);
+			text3d.computeBoundingBox();
+
+			var centerOffset = -0.5 * (text3d.boundingBox.max.x - text3d.boundingBox.min.x);
+			opts.verticalOffset = -0.5 * (text3d.boundingBox.max.y - text3d.boundingBox.min.y);
+
+			opts.mesh = new THREE.Mesh(text3d,  material);
+
+			opts.mesh.position.x = centerOffset;
+
+			for (var face in opts.mesh.geometry.faces) {
+				if (opts.mesh.geometry.faces[face].normal.z != 0) {
+					opts.mesh.geometry.faces[face].materialIndex = 1;
+				}
+			}
+
+			this.setAxis(opts.axis);
+
+			opts.text.canvas = opts.mesh;
 		}
-
-		opts.text.canvas = text;
-
-		this.setAxis(opts.axis);
 		
 		return text;
 	};
@@ -124,7 +166,7 @@ function ThreeDTexter(){
 			opts.mesh.rotation.y = Math.PI * 2;
 
 			opts.axis = "x";
-		} else {
+		} else if (axis == "y") {
 			opts.camera.position.set(0, opts.text.options.size / 2, 500);
 
 			opts.mesh.position.y = 0;
@@ -134,6 +176,20 @@ function ThreeDTexter(){
 			opts.mesh.rotation.y = 0;
 
 			opts.axis = "y";
+		} else if (axis == "wave") {
+			opts.camera.position.set(0, opts.text.options.size / 2, 500);
+
+			// opts.mesh.position.y = 0;
+			// opts.mesh.position.z = -opts.text.options.height / 2;
+
+			opts.wavePosition = 0;
+
+			for (var i = 0; i < opts.mesh.children.length; i++) {
+				opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
+				// opts.mesh.children[i].rotation.y += opts.rotationRate;
+			}
+
+			opts.axis = "wave";
 		}
 	}
 
@@ -173,8 +229,15 @@ function ThreeDTexter(){
 			requestAnimationFrame( animate );
 			if (opts.axis == "x") {
 				opts.group.rotation.x += opts.rotationRate;
-			} else {
+			} else if (opts.axis == "y") {
 				opts.group.rotation.y += opts.rotationRate;
+			} else if (opts.axis == "wave") {
+				opts.wavePosition += opts.rotationRate;
+
+				for (var i = 0; i < opts.mesh.children.length; i++) {
+					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
+					// opts.mesh.children[i].rotation.y += opts.rotationRate;
+				}
 			}
 		}
 

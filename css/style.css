@@ -11,7 +11,8 @@ html, body {
 
 .preview {
   background-color: white;
-  height: 400px;
+  height: 300px;
+  font-size: 0;
 }
 
 .font.selected {
@@ -31,13 +32,13 @@ html, body {
 #input_text input {
   background: transparent;
   padding-left: 15px;
-  width: 500px;
-  outline:none;
+  outline: none;
   font-size: 30px;
   line-height: 30px;
   border: none;
   letter-spacing: 1px;
   color: white;
+  width: 50%;
   height: 100%;
   vertical-align: middle;
 
@@ -52,11 +53,19 @@ html, body {
   vertical-align: top;
   cursor: pointer;
   display: inline-block;
+  float: right;
 }
 #input_text button:focus {
   outline: 0;
   filter: grayscale(50%);
   -webkit-filter: grayscale(50%);
+}
+
+#wave {
+  background-color: #7492AF;
+}
+#wave.selected {
+  background-color: #B9634C;
 }
 
 #axis_x {
