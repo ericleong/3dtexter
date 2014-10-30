@@ -1,331 +1,112 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-     <link rel="stylesheet" type="text/css" href="css/jquery.minicolors.css">
-     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<head>
+	<title>3D Text Generator</title>
 
-  </head>
-  <body>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery.minicolors.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+</head>
 
-  <div id="main">
-  <div id="top">
-    <div id="header">
-      <h3>3D Text Generator</h3>
-    </div>
-  </div>
+<body>
+	<div id="main">
+		<div id="top">
+			<div id="header">
+				<h3>3D Text Generator</h3>
+			</div>
+		</div>
 
+		<div class="preview">
+			<div id="text_container">
+				<!-- renders webgl here -->
+			</div>
+		</div>
+		<div id="input_text">
+			<input type="text" id="text" maxlength="18" placeholder="type text here" value="hello world"/>
+			<button type="button" id="axis_y" class="selected">rotate</button>
+			<button type="button" id="axis_x">flip</button>
+			<button type="button" id="start">start</button>
+		</div>
+		<div class="render_demo">
+		</div>
+		<div id="fonts">
+			<div data-font="helvetiker" style="font-family: helvetiker;" class="font typeface-js">
+				<div class="text">Aa</div>
+				<div class="font_title">Helvetiker</div>
+			</div>
+			<div data-font="blackout" data-bold="true" class="font typeface-js">
+				<div style="font-family: blackout; font-weight: bold;" class="text">Aa</div>
+				<div class="font_title">Blackout</div>
+			</div>
+			<div data-font="digital-7" style="font-family: digital-7;" class="font typeface-js selected">
+				<div class="text">Aa</div>
+				<div class="font_title">Digital 7</div>
+			</div>
+			<div data-font="varsity" style="font-family:varsity;" class="font typeface-js">
+				<div class="text">Aa</div>
+				<div class="font_title">Varsity</div>
+			</div>
+			<div data-font="viafont" style="font-family:viafont" class="font typeface-js">
+				<div class="text typeface-js">Aa</div>
+				<div class="font_title">Viafont</div>
+			</div>
+			<div data-font="slant" style="font-family: Slant;" class="font typeface-js">
+				<div class="text typeface-js">Aa</div>
+				<div class="font_title">Slant</div>
+			</div>
 
-    <div class="preview">
-        <div id="text_container">
-          <!-- renders webgl here -->
-        </div>
-    </div>
-    <div id="input_text">
-      <input type="text" id="text" maxlength="18" placeholder="type text here" value="hello world"/>
-      <button type="button" id="axis_y">rotate</button>
-      <button type="button" id="axis_x">flip</button>
-       <button type="button" id="start">start</button>
+		</div>
 
+		<div id="colors">
+			<div class="form-group" id="primary">
+				<label for="primary-color">Primary Color</label>
+				<input type="hidden" id="primary-color" class="demo" value="#3f6375">
+			</div>
+			<div class="form-group" id="secondary">
+				<label for="secondary-color">Secondary Color</label>
+				<input type="hidden" id="secondary-color" class="demo" value="#b85dd4">
+			</div>
+		</div>
 
-    </div>
-    <div class="render_demo">
-    </div>
-    <div id="fonts">
-      <div data-font="helvetiker" style="font-family: helvetiker;" class="font typeface-js">
-        <div class="text">Aa</div>
-        <div class="font_title">Helvetiker</div>
-      </div>
-      <div data-font="blackout" data-bold="true" class="font typeface-js">
-        <div style="font-family: blackout; font-weight: bold;" class="text">Aa</div>
-        <div class="font_title">Blackout</div>
-      </div>
-      <div data-font="digital-7" style="font-family: digital-7;" class="font typeface-js selected">
-        <div class="text">Aa</div>
-        <div class="font_title">Digital 7</div>
-      </div>
-      <div data-font="varsity" style="font-family:varsity;" class="font typeface-js">
-        <div class="text">Aa</div>
-        <div class="font_title">Varsity</div>
-      </div>
-      <div data-font="viafont" style="font-family:viafont" class="font typeface-js">
-        <div class="text typeface-js">Aa</div>
-        <div class="font_title">Viafont</div>
-      </div>
-      <div data-font="slant" style="font-family: Slant;" class="font typeface-js">
-        <div class="text typeface-js">Aa</div>
-        <div class="font_title">Slant</div>
-      </div>
+		<div id="progressbar"></div>
 
-    </div>
+		<button id="render">Render GIF</button>
+		<div class="share">
+			<!-- sharer links here -->
+			<a href="#" class="social">
+				<img src="img/white_email.png"/>
+			</a>
+			<a href="#" class="social">
+				<img src="img/white_facebook.png"/>
+			</a>
+			<a class="social" href="#">
+					<img src="img/white_tumblr.png"/>
+			</a>
+			<a class="social" href="#">
+				<img src="img/white_twitter.png"/>
+			</a>
+		</div>
+	</div>
 
-    <div id="colors">
-      <div class="form-group" id="primary">
-        <label for="primary-color">Primary Color</label>
-        <input type="hidden" id="primary-color" class="demo" value="#3f6375">
-      </div>
-      <div class="form-group" id="secondary">
-        <label for="secondary-color">Secondary Color</label>
-        <input type="hidden" id="secondary-color" class="demo" value="#b85dd4">
-      </div>
-    </div>
+	<script src="js/three.js"></script>
+	<script src="js/gif-lib/gif.js"></script>
+	<script src="js/typeface-0.15.js"></script>
 
-  <div id="progressbar"></div>
+	<!-- fonts -->
+	<script src="js/blackout_sunrise.typeface.js"></script>
+	<script src="js/helvetiker_regular.typeface.js"></script>
+	<script src="js/digital-7_regular.typeface.js"></script>
+	<script src="js/varsity_regular_varsity_regular.typeface.js"></script>
+	<script src="js/viafont_regular.typeface.js"></script>
+	<script src="js/slant_regular.typeface.js"></script>
+	<!-- end fonts -->
 
-   <button id="render">Render Gif</button>
-   <div class="share">
-      <!-- sharer links here -->
-      <a href="#" class="social">
-        <img src="img/white_email.png"/>
-      </a>
-      <a href="#" class="social">
-        <img src="img/white_facebook.png"/>
-      </a>
-      <a class="social" href="#">
-          <img src="img/white_tumblr.png"/>
-      </a>
-      <a class="social" href="#">
-        <img src="img/white_twitter.png"/>
-      </a>
-    </div>
-
-
-     </div>
-
-  <script src="js/three.js"></script>
-  <script src="js/gif-lib/gif.js"></script>
-  <script src="js/typeface-0.15.js"></script>
-
-  <!-- fonts -->
-  <script src="js/blackout_sunrise.typeface.js"></script>
-  <script src="js/helvetiker_regular.typeface.js"></script>
-  <script src="js/digital-7_regular.typeface.js"></script>
-  <script src="js/varsity_regular_varsity_regular.typeface.js"></script>
-  <script src="js/viafont_regular.typeface.js"></script>
-  <script src="js/slant_regular.typeface.js"></script>
-  <!-- end fonts -->
-
-  <script src="js/base64.js"></script>
-  <script src="js/animator.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="js/jquery.minicolors.js"></script>
-  <script src="js/script.js"></script>
-
-  <script type="text/javascript" src="http://api.filepicker.io/v1/filepicker.js"></script>
-  <script>
-  filepicker.setKey('Adodsaz37ThKdMoOm548Oz');
-  
-
-    window.texter = new ThreeDTexter();
-    texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
-        color: '#eee' 
-      }));
-
-    document.getElementById('render')
-      .addEventListener('click', function(evt){
-        var gif = new GIF({
-          workers: 5,
-          quality: 8,
-          background: '#fff'
-        });
-
-        // or a canvas element
-
-        //gif.addFrame(document.getElementsByTagName('canvas')[0], {copy: true, delay: 80});
-
-        /*
-        var gif_delay = 400,
-            frames = 6;
-        function push_frame(){
-          if (frames-- > 0){
-            gif.addFrame(document.getElementsByTagName('canvas')[0], {delay: gif_delay});
-            console.log('pusing frame');
-            setTimeout(function(){
-              push_frame();
-            }, gif_delay*2);
-          } else {
-            gif.render();
-          }
-        }
-        push_frame();
-        */
-
-          
-function createImage(data){
-
-
-$.post('/backend/dude.php', {
-    img: data
-  }, function(resp, success){
-    if (resp != 'err'){
-      $('body').append('  \
-            <h2>shared!</h2>              \
-            URL: <input type="text" readonly="true" value="http://3dtext.iain.in/up/'+resp+'" />              \
-            <img src="/up/'+resp+'" />       \
-            <a href="javascript:javascript:var d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f=\'http://www.tumblr.com/share\',l=d.location,e=encodeURIComponent,p=\'?v=3&\'+e(l.href) +\'&t=\'+e(d.title) +\'&s=\'+e(s),u=f+p;try{if(!/^(.*\.)?tumblr[^.]*$/.test(l.host))throw(0);tstbklt();}catch(z){a =function(){if(!w.open(u,\'t\',\'toolbar=0,resizable=0,status=1,width=450,height=430\'))l.href=u;};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else a();}void(0)">Tumble it!</a> ');
-    }else{alert('error uploading');}
-    //console.log([resp, success]);
-  });
-
-}
-/*)
-
-
- // open the popup in the click handler so it will not be blocked
-    var w = window.open();
-    w.document.write('Uploading...');
-    // upload to imgur using jquery/CORS
-    // https://developer.mozilla.org/En/HTTP_access_control
-
-  $.ajax({
-        url: 'http://api.imgur.com/2/upload.json',
-        type: 'POST',
-        data: {
-            type: 'base64',
-            // get your key here, quick and fast http://imgur.com/register/api_anon
-            key: '4e56d284b459104',
-            name: 'neon.gif',
-            title: 'test title',
-            caption: 'test caption',
-            image: data.split(',')[1]
-        },
-        dataType: 'json'
-    }).success(function(data) {
-        w.location.href = data['upload']['links']['imgur_page'];
-    }).error(function() {
-        alert('Could not reach api.imgur.com. Sorry :(');
-        w.close();
-    });
-
-
-
-}
-    
-    */
-
-        gif.on('finished', function(blob, data) {
-
-
-          window.open(URL.createObjectURL(blob));
-
-        
-
- var reader = new FileReader();
-                reader.onload = function(event){
-                      createImage(event.target.result); //event.target.results contains the base64 code to create the image.
-                };
-                var base64 = reader.readAsDataURL(blob);//Convert the blob from clipboard to base64
-  
-
-        });
-
-        gif.on('progress', function(progress) {
-          $("#progressbar").progressbar( "value", progress*100 );
-        })
-
-
-        window.texter.api.capture(gif);
-        
-      })
-    
-/*
-    document.getElementById('render')
-     .addEventListener('click', function(evt){
-      evt.preventDefault();
-      
-      if (!confirm('rendering gif')) return;
-
-      var gif_renderer = new GifRenderer();
-      window.gif_renderer = gif_renderer;
-      var frames = 1;
-      var gif_delay = 200;
-      gif_renderer.set_delay(200);
-      var canvas = document.getElementsByTagName('canvas')[0];
-
-      function push_frame(){
-        if (frames-- == 0){
-          gif_renderer.done(function(data){
-            console.log(data);
-            var data_img = document.createElement('img');
-            data_img.src = data.dataURL;
-            document.body.appendChild(data_img);
-            alert('done!');
-          }, function(err){
-            alert(':( ' + err);
-          });
-        } else {
-          gif_renderer.add_frame(canvas);
-          setTimeout(function(){
-            push_frame();
-          }, gif_delay);
-        }
-      }
-      push_frame();
-    })
-*/
-
-  function $id(nm){
-    return document.getElementById(nm);
-  }
-
-    var inputText = document.getElementById('text');
-    var text = "hello world";
-
-    function update_text(){
-      if (text != inputText.value) {
-        text = inputText.value;
-        window.texter.api.setText(text);
-      }
-    }
-
-    inputText.onkeyup = update_text;
-
-    var start = document.getElementById('start');
-    
-    start.onclick = function() {
-      window.texter.api.toggleAnimation();
-
-      if (window.texter.api.isAnimating()) {
-        start.innerHTML = "stop";
-      } else {
-        start.innerHTML = "start";
-      }
-    }
-
-    var font_selects = document.getElementsByClassName('font');
-    for (var i = 0; i < font_selects.length; i++){
-      (function(text_font){
-        text_font.addEventListener('click', function(evt){
-          window.texter.api.setText(inputText.value);
-          for (var i = 0; i < font_selects.length; i++){
-            font_selects[i].className = font_selects[i].className.replace(' selected', '');
-          }
-          window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
-          window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
-          window.texter.render();
-          this.className += ' selected';
-          update_text();
-        });
-        if (text_font.className.indexOf('selected') !== -1){
-          window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
-          window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
-        }
-      })(font_selects[i]);
-    }
-
-    $id('axis_x').addEventListener('click', function(evt){
-      evt.preventDefault();
-
-      window.texter.api.setAxis("x");
-    });
-
-    $id('axis_y').addEventListener('click', function(evt){
-      evt.preventDefault();
-
-      window.texter.api.setAxis("y");
-    });
-  </script>
-    </body>
+	<script src="js/base64.js"></script>
+	<script src="js/animator.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="js/jquery.minicolors.js"></script>
+	<script src="js/script.js"></script>
+</body>
 </html>

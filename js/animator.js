@@ -6,7 +6,7 @@ function $id(nm){
 
 function ThreeDTexter(){
 
-   	this.api = {version: 0.1};
+	this.api = {version: 0.1};
 
 	var opts = this.opts = {
 		container: document.getElementById('text_container'),
@@ -43,13 +43,13 @@ function ThreeDTexter(){
 		opts.camera.position.set( 0, 0, 500 );
 		opts.scene = new THREE.Scene();
 		// add subtle blue ambient lighting
-      	/*var ambientLight = new THREE.AmbientLight(0x000044);
-      	opts.scene.add(ambientLight);
-      	// directional lighting
-	    var directionalLight = new THREE.DirectionalLight(0xffffff);
-	    directionalLight.position.set(1.5, 1, 2).normalize();
-	    opts.scene.add(directionalLight);
-	    */
+		/*var ambientLight = new THREE.AmbientLight(0x000044);
+		opts.scene.add(ambientLight);
+		// directional lighting
+		var directionalLight = new THREE.DirectionalLight(0xffffff);
+		directionalLight.position.set(1.5, 1, 2).normalize();
+		opts.scene.add(directionalLight);
+		*/
 	}
 
 	this.drawTextInternal = function(text, text_options){
@@ -137,7 +137,7 @@ function ThreeDTexter(){
 		}
 	}
 
-   	var self = this;
+	var self = this;
 
 	this.setupCanvas = function(){
 
@@ -222,55 +222,54 @@ function ThreeDTexter(){
 		render();
 	}
    
-    // actually init
-   	this.setup();
-   	this.drawTextInternal('hello world');
-   	this.setupCanvas();
-   	this.render();
-   	this.animate();
+	// actually init
+	this.setup();
+	this.drawTextInternal('hello world');
+	this.setupCanvas();
+	this.render();
+	this.animate();
 
-   	this.api.setText = function(text, options){
-   		opts.group.remove(opts.text.canvas);
-   		if (text != null && text.length > 0) {
-   			self.drawTextInternal(text, options);
-   			opts.group.add(opts.text.canvas);
-   		}
-   		self.render();
-   	}
-   	this.api.setTextOption = function(option, value){
-   		self.opts.text.options[option] = value;
-   	}
-   	this.api.getTextOption = function(option){
-   		return self.opts.text.options[option];
-   	}
-   	this.api.getTextOptions = function(){
-   		return self.opts.text.options;
-   	}
-   	this.api.toggleAnimation = function() {
-   		opts.rotating = !opts.rotating;
+	this.api.setText = function(text, options){
+		opts.group.remove(opts.text.canvas);
+		if (text != null && text.length > 0) {
+			self.drawTextInternal(text, options);
+			opts.group.add(opts.text.canvas);
+		}
+		self.render();
+	}
+	this.api.setTextOption = function(option, value){
+		self.opts.text.options[option] = value;
+	}
+	this.api.getTextOption = function(option){
+		return self.opts.text.options[option];
+	}
+	this.api.getTextOptions = function(){
+		return self.opts.text.options;
+	}
+	this.api.toggleAnimation = function() {
+		opts.rotating = !opts.rotating;
 
-   		if (!opts.rotating) {
-   			self.stop();
-   		} else {
-   			self.animate();
-   		}
-   	}
-   	this.api.isAnimating = function() {
-   		return opts.rotating;
-   	}
-   	this.api.setAxis = function(axis) {
-   		if (opts.rotating) {
-   			self.stop();
-   			self.setAxis(axis);
-   			self.api.toggleAnimation();
-   		} else {
-   			self.setAxis(axis);
-   			self.render();
-   		}
-   	}
+		if (!opts.rotating) {
+			self.stop();
+		} else {
+			self.animate();
+		}
+	}
+	this.api.isAnimating = function() {
+		return opts.rotating;
+	}
+	this.api.setAxis = function(axis) {
+		if (opts.rotating) {
+			self.stop();
+			self.setAxis(axis);
+			self.api.toggleAnimation();
+		} else {
+			self.setAxis(axis);
+			self.render();
+		}
+	}
 
-
-   	return self;
+	return self;
 }
 
 
@@ -280,17 +279,17 @@ function GifRenderer(){
 
 	this.utils = {
 		rawDataURL: function(data) {
-        	return Base64.encode(data);
-        },
-        dataURL: function(rawData){
-        	return 'data:image/gif;base64,' + rawData;
-        },
-        binaryURL: function(data) {
-        	window.URL = window.URL || window.webkitURL;
-        	var blob = new Blob([data], {type: 'image/gif'});
-        	return window.URL.createObjectURL(blob);
-        }
-    };
+			return Base64.encode(data);
+		},
+		dataURL: function(rawData){
+			return 'data:image/gif;base64,' + rawData;
+		},
+		binaryURL: function(data) {
+			window.URL = window.URL || window.webkitURL;
+			var blob = new Blob([data], {type: 'image/gif'});
+			return window.URL.createObjectURL(blob);
+		}
+	};
 
 	this.frames = [];
 	this.delay = 200;
@@ -316,28 +315,28 @@ function GifRenderer(){
 		this.gifWorker = gifWorker;
 
 		gifWorker.addEventListener('message', function (e) {
-            if (e.data.type === "progress") {
-                // Percent done, 0.0-0.1
-                self.update_progress(e.data.data);
-            } else if (e.data.type === "gif") {
-                var info = e.data;
-                info.binaryURL = self.utils.binaryURL( e.data.data );
-                info.rawDataURL = self.utils.rawDataURL( e.data.data );
-                info.dataURL = self.utils.dataURL( info.rawDataURL );
-                data_callback(info);
-            }
-        }, false);
+			if (e.data.type === "progress") {
+				// Percent done, 0.0-0.1
+				self.update_progress(e.data.data);
+			} else if (e.data.type === "gif") {
+				var info = e.data;
+				info.binaryURL = self.utils.binaryURL( e.data.data );
+				info.rawDataURL = self.utils.rawDataURL( e.data.data );
+				info.dataURL = self.utils.dataURL( info.rawDataURL );
+				data_callback(info);
+			}
+		}, false);
 
-        gifWorker.addEventListener('error', function (e) {
-            error_callback(e);
-            gifWorker.terminate();
-        }, false);
+		gifWorker.addEventListener('error', function (e) {
+			error_callback(e);
+			gifWorker.terminate();
+		}, false);
 
-        gifWorker.postMessage({
-            frames: this.frames,
-            delay: this.delay,
-            matte: [255, 255, 255],
-            transparent: [0, 0, 0]
-        });
+		gifWorker.postMessage({
+			frames: this.frames,
+			delay: this.delay,
+			matte: [255, 255, 255],
+			transparent: [0, 0, 0]
+		});
 	}
 }

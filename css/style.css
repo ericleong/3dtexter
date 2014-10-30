@@ -53,13 +53,24 @@ html, body {
   cursor: pointer;
   display: inline-block;
 }
+#input_text button:focus {
+  outline: 0;
+  filter: grayscale(50%);
+  -webkit-filter: grayscale(50%);
+}
 
 #axis_x {
-  background-color:#7492AF;
+  background-color: #7492AF;
+}
+#axis_x.selected {
+  background-color: #B9634C;
 }
 
 #axis_y {
   background-color: #849AAF;
+}
+#axis_y.selected {
+  background-color: #E2857F;
 }
 
 #start {
@@ -141,8 +152,8 @@ html, body {
   text-align: center;
   letter-spacing: 1px;
   line-height: 25px;
-  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
-
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+  font-size: 12pt;
 }
 
 #times {
