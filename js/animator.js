@@ -41,7 +41,7 @@ function ThreeDTexter(){
 	var exports = {};
 
 	this.setup = function(){
-		opts.camera = new THREE.PerspectiveCamera( 60, 2, 50, 1000 );
+		opts.camera = new THREE.PerspectiveCamera( 60, 2, 50, 2000 );
 		opts.camera.position.set( 0, 0, 500 );
 		opts.scene = new THREE.Scene();
 		// add subtle blue ambient lighting
@@ -108,6 +108,8 @@ function ThreeDTexter(){
 				text3d.add(mesh);
 			}
 
+			opts.width = Math.min(Math.max(0.5 * width, 500), 1000);
+
 			text3d.translateX(-0.5 * width);
 
 			this.setAxis(opts.axis);
@@ -119,7 +121,8 @@ function ThreeDTexter(){
 			text3d.computeBoundingBox();
 
 			var centerOffset = -0.5 * (text3d.boundingBox.max.x - text3d.boundingBox.min.x);
-			opts.verticalOffset = -0.5 * (text3d.boundingBox.max.y - text3d.boundingBox.min.y);
+
+			opts.width = Math.min(Math.max(0.5 * (text3d.boundingBox.max.x - text3d.boundingBox.min.x), 500), 1000);
 
 			opts.mesh = new THREE.Mesh(text3d,  material);
 
@@ -157,7 +160,7 @@ function ThreeDTexter(){
 
 	this.setAxis = function(axis) {
 		if (axis == "x") {
-			opts.camera.position.set(0, 0, 500);
+			opts.camera.position.set(0, 0, opts.width);
 
 			opts.mesh.position.y = -opts.text.options.size / 2;
 			opts.mesh.position.z = -opts.text.options.height / 2;
@@ -167,7 +170,7 @@ function ThreeDTexter(){
 
 			opts.axis = "x";
 		} else if (axis == "y") {
-			opts.camera.position.set(0, opts.text.options.size / 2, 500);
+			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			opts.mesh.position.y = 0;
 			opts.mesh.position.z = -opts.text.options.height / 2;
@@ -177,7 +180,7 @@ function ThreeDTexter(){
 
 			opts.axis = "y";
 		} else if (axis == "wave") {
-			opts.camera.position.set(0, opts.text.options.size / 2, 500);
+			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			// opts.mesh.position.y = 0;
 			// opts.mesh.position.z = -opts.text.options.height / 2;
