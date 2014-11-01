@@ -121,22 +121,45 @@ button:focus, button:hover {
 	width: 100%;
 }
 #header {
-	width: 300px;
-	height: 60px;
-	line-height: 60px;
-	float: left;
-	background-color: #34495e;
-	padding-left: 20px;
-	}
+	height: 100%;
+	vertical-align: top;
+	position: relative;
+	font-size: 0;
+}
 
-#header h3 {
+#header h1, #header a {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-weight: 500;
-	letter-spacing: 1px;
+	letter-spacing: 0.25em;
 	color: white;
 	margin-top: 0;
 	margin-bottom: 0;
+
 	font-size: 30px;
+	line-height: 60px;
+	background-color: #34495e;
+
+	padding-left: 15px;
+	padding-right: 15px;
+
+	width: intrinsic;
+	width: -moz-max-content;
+	width: -webkit-max-content;
+}
+
+#header h1 {
+	float: left;
+}
+
+#header a {
+	float: right;
+	height: 50%;
+	line-height: 30px;
+	font-size: 15px;
+	letter-spacing: normal;
+
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .share {
