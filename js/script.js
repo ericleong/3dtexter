@@ -56,14 +56,10 @@ $(document).ready( function() {
 			
 		gif.on('finished', function(blob, data) {
 
-			window.open(URL.createObjectURL(blob));
+			// window.open(URL.createObjectURL(blob));
 
-			// var reader = new FileReader();
-			// reader.onload = function(event){
-			// 	createImage(event.target.result); //event.target.results contains the base64 code to create the image.
-			// };
-
-			var base64 = reader.readAsDataURL(blob); //Convert the blob from clipboard to base64
+			// var base64 = reader.readAsDataURL(blob); //Convert the blob from clipboard to base64
+			$("#gif").attr("src", URL.createObjectURL(blob));
 		});
 
 		gif.on('progress', function(progress) {

@@ -1,5 +1,5 @@
 html, body {
-  background-color: #ecf0f1;
+	background-color: #ecf0f1;
 }
 
 #main {
@@ -10,231 +10,234 @@ html, body {
 }
 
 .preview {
-  background-color: white;
-  height: 300px;
-  font-size: 0;
+	background-color: white;
+	height: 300px;
+	font-size: 0;
 }
 
 .font.selected {
-  background:#bbb;
+	background:#bbb;
 }
 
 #input_text {
-  height: 50px;
-  width: 800px;
-  background-color: #34495e;
-  font-size: 0px;
+	height: 50px;
+	width: 800px;
+	background-color: #34495e;
+	font-size: 0px;
 
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 500;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 500;
 }
 
 #input_text input {
-  background: transparent;
-  padding-left: 15px;
-  outline: none;
-  font-size: 30px;
-  line-height: 30px;
-  border: none;
-  letter-spacing: 1px;
-  color: white;
-  width: 50%;
-  height: 100%;
-  vertical-align: middle;
+	background: transparent;
+	padding-left: 15px;
+	outline: none;
+	font-size: 30px;
+	line-height: 30px;
+	border: none;
+	letter-spacing: 1px;
+	color: white;
+	width: 50%;
+	height: 100%;
+	vertical-align: middle;
 
-  display: inline-block;
+	display: inline-block;
 }
 #input_text button {
-  height: 100%;
-  width: 100px;
-  color: white;
-  font-size: 30px;
-  border: none;
-  vertical-align: top;
-  cursor: pointer;
-  display: inline-block;
-  float: right;
+	height: 100%;
+	width: 100px;
+	color: white;
+	font-size: 30px;
+	border: none;
+	vertical-align: top;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
 }
-#input_text button:focus {
-  outline: 0;
-  filter: grayscale(50%);
-  -webkit-filter: grayscale(50%);
+button:focus {
+	outline: 0;
+	filter: grayscale(50%);
+	-webkit-filter: grayscale(50%);
 }
 
 #wave {
-  background-color: #7492AF;
+	background-color: #7492AF;
 }
 #wave.selected {
-  background-color: #B9634C;
+	background-color: #B9634C;
 }
 
 #axis_x {
-  background-color: #7492AF;
+	background-color: #7492AF;
 }
 #axis_x.selected {
-  background-color: #B9634C;
+	background-color: #B9634C;
 }
 
 #axis_y {
-  background-color: #849AAF;
+	background-color: #849AAF;
 }
 #axis_y.selected {
-  background-color: #E2857F;
+	background-color: #E2857F;
 }
 
 #start {
-  background-color: #11273d;
+	background-color: #11273d;
 }
 #input_text button:hover {
-  background-color: #bdc3c7;
+	background-color: #bdc3c7;
 }
 ::-webkit-input-placeholder {
-  color: white;
+	color: white;
 }
 #top {
-  height: 60px;
-  width: 800px;
+	height: 60px;
+	width: 800px;
 }
 #header {
-  width: 300px;
-  height: 60px;
-  line-height: 60px;
-  float: left;
-  background-color: #34495e;
-  padding-left: 20px;
-  }
+	width: 300px;
+	height: 60px;
+	line-height: 60px;
+	float: left;
+	background-color: #34495e;
+	padding-left: 20px;
+	}
 
 #header h3 {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: white;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 30px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 500;
+	letter-spacing: 1px;
+	color: white;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 30px;
 }
 
 .share {
-  width: 300px;
-  height:50px;
-  background-color: #34495e;
-  padding-top: 9px;
-  text-align: center;
-  display: inline-block;
-  background-color: #11273d;
-  margin-left: -2px;
+	width: 300px;
+	height:50px;
+	background-color: #34495e;
+	padding-top: 9px;
+	text-align: center;
+	display: inline-block;
+	background-color: #11273d;
+	margin-left: -2px;
 }
 
 
 #fonts, #colors, #top {
-  font-size: 0;
-  margin-top: 16px;
-  margin-bottom: 16px;
+	font-size: 0;
+	margin-top: 16px;
+	margin-bottom: 16px;
 }
 .font {
-  height: 150px;
-  width: 15%;
-  margin-left: 2%;
-  background: white;
-  display: inline-block;
-  cursor: pointer;
+	height: 150px;
+	width: 15%;
+	margin-left: 2%;
+	background: white;
+	display: inline-block;
+	cursor: pointer;
 }
 .font:first-child {
-  margin-left: 0%;
+	margin-left: 0%;
 }
 
 .text {
-  height: 120px;
-  line-height: 125px;
-  font-size: 50px;
-  text-align: center;
+	height: 120px;
+	line-height: 125px;
+	font-size: 50px;
+	text-align: center;
 }
 
 .text:hover {
-  background-color: #7f8c8d;
+	background-color: #7f8c8d;
 }
 .font_title {
-  height: 30px; 
-  background: #34495e;
-  color: white;
-  text-align: center;
-  letter-spacing: 1px;
-  line-height: 30px;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
-  font-size: 12pt;
+	height: 30px; 
+	background: #34495e;
+	color: white;
+	text-align: center;
+	letter-spacing: 1px;
+	line-height: 30px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+	font-size: 12pt;
 }
 
 #times {
-  font-family: 'Times New Roman';
+	font-family: 'Times New Roman';
 }
 
 #arial {
-  font-family: 'Arial';
+	font-family: 'Arial';
 }
 
 #helvetica {
-  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 a {
-  text-decoration: none;
-  margin-left: 4px;
-  margin-right: 4px;
+	text-decoration: none;
+	margin-left: 4px;
+	margin-right: 4px;
 }
 
 .form-group {
-   font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-   height: 180px;
-   width: 49%;
-   display: inline-block;
+	 font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	 height: 180px;
+	 width: 49%;
+	 display: inline-block;
 }
 
 .form-group#primary {
-  background-color: #3f6375;
-  margin-right: 2%;
+	background-color: #3f6375;
+	margin-right: 2%;
 }
 
 .form-group#secondary {
-  background-color: #b85dd4;
+	background-color: #b85dd4;
 }
 
 .form-group label {
-  padding-left: 20px;
-  position: relative;
-  top: 10px;
-  color: white;
+	padding-left: 20px;
+	position: relative;
+	top: 10px;
+	color: white;
 }
 
 
 #render {
-  height: 50px;
-  width: 300px;
-  color: white;
-  font-size: 30px;
-  border: none;
-  vertical-align: top;
-  cursor: pointer;
-  display: inline-block;
-  background-color: #34495e;
-  margin-left: 100px;
-  margin-bottom: 50px;
-  margin-right: -2px;
+	height: 60px;
+	width: 100%;
+	color: white;
+	font-size: 30px;
+	border: none;
+	vertical-align: top;
+	cursor: pointer;
+	display: inline-block;
+	background-color: #34495e;
 }
 
 #render:hover, .share:hover {
-  background-color: #7f8c8d;
+	background-color: #7f8c8d;
 }
 .ui-progressbar {
-    position: relative;
-    margin-bottom: 30px;
-  }
-  .progress-label {
-    position: absolute;
-    left: 45%;
-    top: 4px;
-    font-weight: bold;
-  }
+	position: relative;
+	margin-bottom: 16px;
+}
+.progress-label {
+	position: absolute;
+	left: 45%;
+	top: 4px;
+	font-weight: bold;
+}
 
-  #progressbar .ui-progressbar-value {
-    background-color:  #34495e;
-  }
+#progressbar .ui-progressbar-value {
+	background-color:  #34495e;
+}
+
+#gif {
+	width: 100%;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
