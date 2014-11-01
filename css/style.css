@@ -19,14 +19,17 @@ html, body {
 	background:#bbb;
 }
 
-#input_text {
-	height: 50px;
-	width: 800px;
-	background-color: #34495e;
+#input_text, #axis {
+	height: 60px;
+	width: 100%;
 	font-size: 0px;
 
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-weight: 500;
+}
+
+#input_text {
+	background-color: #34495e;
 }
 
 #input_text input {
@@ -38,7 +41,7 @@ html, body {
 	border: none;
 	letter-spacing: 1px;
 	color: white;
-	width: 50%;
+	width: 85%;
 	height: 100%;
 	vertical-align: middle;
 
@@ -46,16 +49,31 @@ html, body {
 }
 #input_text button {
 	height: 100%;
-	width: 100px;
+	width: 15%;
 	color: white;
 	font-size: 30px;
 	border: none;
 	vertical-align: top;
 	cursor: pointer;
 	display: inline-block;
-	float: right;
 }
-button:focus {
+
+#axis button {
+	height: 100%;
+	width: 23.5%;
+	margin-left: 2%;
+	color: white;
+	font-size: 30px;
+	border: none;
+	vertical-align: top;
+	cursor: pointer;
+	display: inline-block;
+}
+#axis button:first-child {
+	margin-left: 0%;
+}
+
+button:focus, button:hover {
 	outline: 0;
 	filter: grayscale(50%);
 	-webkit-filter: grayscale(50%);
@@ -66,6 +84,13 @@ button:focus {
 }
 #wave.selected {
 	background-color: #B9634C;
+}
+
+#spin {
+	background-color: #849AAF;
+}
+#spin.selected {
+	background-color: #E2857F;
 }
 
 #axis_x {

@@ -23,16 +23,19 @@
 			</div>
 		</div>
 		<div id="input_text">
-			<input type="text" id="text" maxlength="24" placeholder="type text here" value="hello world"/>
+			<input type="text" id="text" maxlength="30" placeholder="type text here" value="hello world"/>
 			<button type="button" id="start">start</button>
+		</div>
+		<div id="axis">
+			<button type="button" id="wave" class="selected">wave</button>
+			<button type="button" id="spin">spin</button>
 			<button type="button" id="axis_x">flip</button>
-			<button type="button" id="axis_y" class="selected">rotate</button>
-			<button type="button" id="wave">wave</button>
+			<button type="button" id="axis_y">rotate</button>
 		</div>
 		<div class="render_demo">
 		</div>
 		<div id="fonts">
-			<div data-font="helvetiker" style="font-family: helvetiker;" class="font typeface-js">
+			<div data-font="helvetiker" style="font-family: helvetiker;" class="font typeface-js selected">
 				<div class="text">Aa</div>
 				<div class="font_title">Helvetiker</div>
 			</div>
@@ -40,7 +43,7 @@
 				<div style="font-family: blackout; font-weight: bold;" class="text">Aa</div>
 				<div class="font_title">Blackout</div>
 			</div>
-			<div data-font="digital-7" style="font-family: digital-7;" class="font typeface-js selected">
+			<div data-font="digital-7" style="font-family: digital-7;" class="font typeface-js">
 				<div class="text">Aa</div>
 				<div class="font_title">Digital 7</div>
 			</div>

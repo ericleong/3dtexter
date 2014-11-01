@@ -161,6 +161,17 @@ $id('axis_y').addEventListener('click', function(evt){
 	}
 });
 
+$id('spin').addEventListener('click', function(evt){
+	evt.preventDefault();
+
+	if (!this.classList.contains('selected')) {
+		unselect();
+		this.classList.add('selected');
+		window.texter.api.setAxis("spin");
+		window.texter.api.setText(inputText.value);
+	}
+});
+
 $id('wave').addEventListener('click', function(evt){
 	evt.preventDefault();
 
@@ -170,5 +181,4 @@ $id('wave').addEventListener('click', function(evt){
 		window.texter.api.setAxis("wave");
 		window.texter.api.setText(inputText.value);
 	}
-}); 
-		
+});

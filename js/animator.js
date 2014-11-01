@@ -24,8 +24,9 @@ function ThreeDTexter(){
 				bevelThickness: 4,
 				bevelSize: 2,
 				bevelEnabled: false,
-				font: "digital-7",
+				font: "helvetiker",
 				weight: 'normal',
+				style: 'normal',
 				textColor: 0xFF0000,
 				sideColor: 0x0000FF
 			}
@@ -36,7 +37,7 @@ function ThreeDTexter(){
 		rotating: false,
 		numFrames: 47,
 		delay: 42,
-		axis: "y"
+		axis: "wave"
 	};
 
 	var exports = {};
@@ -75,9 +76,16 @@ function ThreeDTexter(){
 		var material = new THREE.MeshFaceMaterial(materials);
 
 		// text
-		if (opts.axis == "wave") {
+		if (opts.axis == "wave" || opts.axis == "spin") {
 			var width = 0;
 			var text3d = new THREE.Object3D();
+
+			THREE.FontUtils.size = opts.text.options.size;
+			THREE.FontUtils.divisions = opts.text.options.curveSegments;
+
+			THREE.FontUtils.face = opts.text.options.font;
+			THREE.FontUtils.weight = opts.text.options.weight;
+			THREE.FontUtils.style = opts.text.options.style;
 
 			for (var i = 0; i < text.length; i++) {
 
@@ -92,12 +100,14 @@ function ThreeDTexter(){
 				var letter3d = new THREE.TextGeometry(text[i], opts.text.options);
 				letter3d.computeBoundingBox();
 
-				var letterWidth = letter3d.boundingBox.max.x - letter3d.boundingBox.min.x;
+				letter3d.applyMatrix(new THREE.Matrix4().makeTranslation(
+					-0.5 * (letter3d.boundingBox.max.x - letter3d.boundingBox.min.x), 0, 
+					-opts.text.options.height / 2) );
+
 				opts.verticalOffset = -0.5 * (letter3d.boundingBox.max.y - letter3d.boundingBox.min.y);
 
 				var mesh = new THREE.Mesh(letter3d,  material);
-				mesh.position.x = width;
-				mesh.position.z = -opts.text.options.height / 2;
+				mesh.position.x = width + 0.5 * (letter3d.boundingBox.max.x - letter3d.boundingBox.min.x);
 
 				width += offset * 2;
 
@@ -113,10 +123,10 @@ function ThreeDTexter(){
 			opts.width = Math.min(Math.max(0.5 * width, 500), 1000);
 
 			text3d.translateX(-0.5 * width);
+			opts.mesh = text3d;
 
 			this.setAxis(opts.axis);
-
-			opts.mesh = text3d;
+			
 			opts.text.canvas = text3d;
 		} else {
 			var text3d = new THREE.TextGeometry(text, opts.text.options);
@@ -166,27 +176,23 @@ function ThreeDTexter(){
 
 			opts.mesh.position.y = -opts.text.options.size / 2;
 			opts.mesh.position.z = -opts.text.options.height / 2;
-
-			opts.mesh.rotation.x = 0;
-			opts.mesh.rotation.y = 0;
 		} else if (axis == "y") {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			opts.mesh.position.y = 0;
 			opts.mesh.position.z = -opts.text.options.height / 2;
 
-			opts.mesh.rotation.x = 0;
-			opts.mesh.rotation.y = 0;
 		} else if (axis == "wave") {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
-			// opts.mesh.position.y = 0;
-			// opts.mesh.position.z = -opts.text.options.height / 2;
-
-			opts.wavePosition = 0;
-
 			for (var i = 0; i < opts.mesh.children.length; i++) {
 				opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
+			}
+		} else if (axis == "spin") {
+			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
+
+			for (var i = 0; i < opts.mesh.children.length; i++) {
+				opts.mesh.children[i].rotation.y = 0;
 			}
 		}
 	}
@@ -238,6 +244,13 @@ function ThreeDTexter(){
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
 				}
+			} else if (opts.axis == "spin") {
+				for (var i = 0; i < opts.mesh.children.length; i++) {
+					var width = 50;
+					var x = opts.mesh.children[i].position.x;
+					var z = opts.mesh.children[i].position.z;
+					opts.mesh.children[i].rotation.y += opts.rotationRate;
+				}
 			}
 		}
 
@@ -249,6 +262,11 @@ function ThreeDTexter(){
 		var wasAnimating = opts.rotating;
 
 		self.stop();
+
+		opts.mesh.rotation.x = 0;
+		opts.mesh.rotation.y = 0;
+
+		opts.wavePosition = 0;
 
 		var numFrames = opts.numFrames;
 		var dAngle = 2 * Math.PI / (numFrames + 1);
@@ -269,7 +287,12 @@ function ThreeDTexter(){
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
 				}
+			} else if (opts.axis == "spin") {
+				for (var i = 0; i < opts.mesh.children.length; i++) {
+					opts.mesh.children[i].rotation.y += dAngle;
+				}
 			}
+
 			render();
 
 			setTimeout(function(){
