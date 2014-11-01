@@ -31,25 +31,31 @@ $(document).ready( function() {
 		});            
 	});
 
+	var rendering = false;
+
 	$('#render').click(function() {
-		$('#progressbar').append('<div class="progress-label">Loading...</div>');
+		if (rendering) {
+			return;
+		}
 
-		var progressbar = $( "#progressbar" ),
-		progressLabel = $( ".progress-label" );
+		rendering = true;
 
+		var progressbar = $( "#progressbar" );
 		
 		progressbar.progressbar({
 			value: false,
 			change: function() {
-				progressLabel.text( progressbar.progressbar( "value" ) + "%" );
-			},
-			complete: function() {
-				progressLabel.text( "Complete!" );
+				var progress = 0;
+				if (progressbar.progressbar("value")) {
+					progress = Math.ceil(progressbar.progressbar("value"));
+				}
+
+				$("#render").text(progress + "%" );
 			}
 		});
 
 		var gif = new GIF({
-			workers: 5,
+			workers: 4,
 			quality: 8,
 			workerScript: './js/gif-lib/gif.worker.js',
 			transparent: '#fff'
@@ -57,10 +63,13 @@ $(document).ready( function() {
 			
 		gif.on('finished', function(blob, data) {
 			$("#gif").attr("src", URL.createObjectURL(blob));
+			$("#render").text("Render GIF");
+			progressbar.hide();
+			rendering = true;
 		});
 
 		gif.on('progress', function(progress) {
-			$("#progressbar").progressbar( "value", progress*100 );
+			$("#progressbar").progressbar("value", progress * 100);
 		})
 
 		window.texter.api.capture(gif);

@@ -46,13 +46,12 @@ function ThreeDTexter(){
 		opts.camera.position.set( 0, 0, 500 );
 		opts.scene = new THREE.Scene();
 		// add subtle blue ambient lighting
-		/*var ambientLight = new THREE.AmbientLight(0x000044);
-		opts.scene.add(ambientLight);
-		// directional lighting
-		var directionalLight = new THREE.DirectionalLight(0xffffff);
-		directionalLight.position.set(1.5, 1, 2).normalize();
-		opts.scene.add(directionalLight);
-		*/
+		// var ambientLight = new THREE.AmbientLight(0x000044);
+		// opts.scene.add(ambientLight);
+		// // directional lighting
+		// var directionalLight = new THREE.DirectionalLight(0xffffff);
+		// directionalLight.position.set(1.5, 1, 2).normalize();
+		// opts.scene.add(directionalLight);
 	}
 
 	this.drawTextInternal = function(text, text_options){
@@ -149,12 +148,12 @@ function ThreeDTexter(){
 
 		opts.text.options.textMaterial = new THREE.MeshBasicMaterial({
 			color: opts.text.options.textColor,
-			shading: THREE.FlatShading,
+			shading: THREE.SmoothShading,
 			overdraw: 0.4
 		});
 		opts.text.options.sideMaterial = new THREE.MeshBasicMaterial({
 			color: opts.text.options.sideColor,
-			shading: THREE.FlatShading,
+			shading: THREE.SmoothShading,
 			overdraw: 0.4
 		});
 	};
