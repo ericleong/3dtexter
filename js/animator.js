@@ -81,8 +81,10 @@ function ThreeDTexter(){
 
 			for (var i = 0; i < text.length; i++) {
 
+				var offset = THREE.FontUtils.drawText(text[i]).offset;
+
 				if (text[i] == ' ') {
-					width += 50;
+					width += offset * 2;
 
 					continue;
 				}
@@ -97,7 +99,7 @@ function ThreeDTexter(){
 				mesh.position.x = width;
 				mesh.position.z = -opts.text.options.height / 2;
 
-				width += letterWidth + 10;
+				width += offset * 2;
 
 				for (var face in mesh.geometry.faces) {
 					if (mesh.geometry.faces[face].normal.z != 0) {
@@ -120,7 +122,7 @@ function ThreeDTexter(){
 			var text3d = new THREE.TextGeometry(text, opts.text.options);
 			text3d.computeBoundingBox();
 
-			var centerOffset = -0.5 * (text3d.boundingBox.max.x - text3d.boundingBox.min.x);
+			var centerOffset = -THREE.FontUtils.drawText(text).offset;
 
 			opts.width = Math.min(Math.max(0.5 * (text3d.boundingBox.max.x - text3d.boundingBox.min.x), 500), 1000);
 
