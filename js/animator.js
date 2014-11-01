@@ -337,6 +337,18 @@ function ThreeDTexter(canvasWidth, canvasHeight){
 	this.api.setColor = function(front, side) {
 		opts.text.options.textColor = front;
 		opts.text.options.sideColor = side;
+
+		if (opts.axis == 'x' || opts.axis == 'y') {
+			opts.mesh.material.materials[0].color.setHex(side);
+			opts.mesh.material.materials[1].color.setHex(front);
+		} else if (opts.axis == 'wave' || opts.axis == 'spin') {
+			for (var i = 0; i < opts.mesh.children.length; i++) {
+				opts.mesh.children[i].material.materials[0].color.setHex(side);
+				opts.mesh.children[i].material.materials[1].color.setHex(front);
+			}
+		}
+
+		self.render();
 	}
 	this.api.toggleAnimation = function() {
 		opts.rotating = !opts.rotating;

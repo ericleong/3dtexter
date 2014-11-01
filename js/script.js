@@ -28,7 +28,6 @@ $(document).ready( function() {
 					window.texter.api.setColor(
 						parseInt($id('primary-color').value.substr(1), 16), 
 						parseInt($id('secondary-color').value.substr(1), 16));
-					window.texter.api.setText(inputText.value);
 				} catch(e) {}
 			},
 			theme: 'default'
