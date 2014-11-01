@@ -72,6 +72,9 @@ $(document).ready( function() {
 
 		window.texter.api.capture(gif);
 	});
+
+	window.texter.api.toggleAnimation();
+	start.innerHTML = "stop";
 });
 
 window.texter = new ThreeDTexter();

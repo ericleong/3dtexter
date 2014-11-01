@@ -94,8 +94,6 @@ html, body {
 #top {
   height: 60px;
   width: 800px;
-  margin-bottom: 30px;
-  margin-top: 30px;
 }
 #header {
   width: 300px;
@@ -112,6 +110,7 @@ html, body {
   letter-spacing: 1px;
   color: white;
   margin-top: 0;
+  margin-bottom: 0;
   font-size: 30px;
 }
 
@@ -127,10 +126,10 @@ html, body {
 }
 
 
-#fonts, #colors {
+#fonts, #colors, #top {
   font-size: 0;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 .font {
   height: 150px;
@@ -145,7 +144,7 @@ html, body {
 }
 
 .text {
-  height: 125px;
+  height: 120px;
   line-height: 125px;
   font-size: 50px;
   text-align: center;
@@ -155,12 +154,12 @@ html, body {
   background-color: #7f8c8d;
 }
 .font_title {
-  height: 25px; 
+  height: 30px; 
   background: #34495e;
   color: white;
   text-align: center;
   letter-spacing: 1px;
-  line-height: 25px;
+  line-height: 30px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
   font-size: 12pt;
 }
@@ -185,7 +184,7 @@ a {
 
 .form-group {
    font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-   height: 200px;
+   height: 180px;
    width: 49%;
    display: inline-block;
 }
