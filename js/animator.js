@@ -30,7 +30,6 @@ function ThreeDTexter(){
 				sideColor: 0x0000FF
 			}
 		},
-		targetRotation: 0,
 		wavePosition: 0,
 		waveAngle: Math.PI / 6,
 		rotationRate: Math.PI / 60,
@@ -166,14 +165,14 @@ function ThreeDTexter(){
 			opts.mesh.position.z = -opts.text.options.height / 2;
 
 			opts.mesh.rotation.x = 0;
-			opts.mesh.rotation.y = Math.PI * 2;
+			opts.mesh.rotation.y = 0;
 		} else if (axis == "y") {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			opts.mesh.position.y = 0;
 			opts.mesh.position.z = -opts.text.options.height / 2;
 
-			opts.mesh.rotation.x = Math.PI * 2;
+			opts.mesh.rotation.x = 0;
 			opts.mesh.rotation.y = 0;
 		} else if (axis == "wave") {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
@@ -280,7 +279,7 @@ function ThreeDTexter(){
 
 	this.stop = function() {
 		opts.group.rotation.x = 0;
-		opts.group.rotation.y = opts.targetRotation;
+		opts.group.rotation.y = 0;
 		opts.rotating = false;
 
 		render();
@@ -316,13 +315,16 @@ function ThreeDTexter(){
 		if (!opts.rotating) {
 			self.stop();
 		} else {
-			// self.animate();
+			self.animate();
 		}
 	}
 	this.api.isAnimating = function() {
 		return opts.rotating;
 	}
 	this.api.setAxis = function(axis) {
+		opts.group.rotation.x = 0;
+		opts.group.rotation.y = 0;
+
 		opts.axis = axis;
 	}
 
