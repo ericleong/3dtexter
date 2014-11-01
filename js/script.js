@@ -51,14 +51,11 @@ $(document).ready( function() {
 		var gif = new GIF({
 			workers: 5,
 			quality: 8,
-			background: '#fff'
+			workerScript: './js/gif-lib/gif.worker.js',
+			transparent: '#fff'
 		});
 			
 		gif.on('finished', function(blob, data) {
-
-			// window.open(URL.createObjectURL(blob));
-
-			// var base64 = reader.readAsDataURL(blob); //Convert the blob from clipboard to base64
 			$("#gif").attr("src", URL.createObjectURL(blob));
 		});
 

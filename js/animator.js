@@ -197,7 +197,9 @@ function ThreeDTexter(){
 
 		opts.scene.add( opts.group );
 
-		opts.renderer = new THREE.CanvasRenderer();
+		opts.renderer = new THREE.WebGLRenderer({
+			preserveDrawingBuffer: true
+		});
 		opts.renderer.setSize( 800, 300 );
 
 		opts.container.appendChild( opts.renderer.domElement );
@@ -240,16 +242,19 @@ function ThreeDTexter(){
 
 
 	this.api.capture = function(gif){
+		var wasAnimating = opts.rotating;
+
 		self.stop();
 
 		var numFrames = 19;
+		var delay = 100;
 		var dAngle = 2 * Math.PI / (numFrames + 1);
 
-		var canvas = document.getElementsByTagName('canvas')[0]
+		var canvas = document.getElementsByTagName('canvas')[0];
 
 		function run_capture(){
-			console.log('captureing');
-			gif.addFrame(canvas, {copy: true,delay: 100});
+			console.log('capturing frame: ' + (19 - numFrames));
+			gif.addFrame(canvas, {copy: true, delay: delay});
 		
 			if (opts.axis == "x") {
 				opts.group.rotation.x += dAngle;
@@ -268,18 +273,26 @@ function ThreeDTexter(){
 				if (numFrames-- > 0){
 					run_capture();
 				} else {
+					if (wasAnimating) {
+						opts.rotating = true;
+						self.animate();
+					}
+
 					gif.render();
 				}
-			}, 100);
-
+			}, delay);
 		}
 
 		run_capture();
 	}
 
-	this.stop = function() {
+	this.reset = function() {
 		opts.group.rotation.x = 0;
 		opts.group.rotation.y = 0;
+	}
+
+	this.stop = function() {
+		self.reset();
 		opts.rotating = false;
 
 		render();
@@ -322,80 +335,10 @@ function ThreeDTexter(){
 		return opts.rotating;
 	}
 	this.api.setAxis = function(axis) {
-		opts.group.rotation.x = 0;
-		opts.group.rotation.y = 0;
+		self.reset();
 
 		opts.axis = axis;
 	}
 
 	return self;
-}
-
-
-function GifRenderer(){
-
-	// "class" inspired by github.com/h5bp/mothereffinganimatedgif
-
-	this.utils = {
-		rawDataURL: function(data) {
-			return Base64.encode(data);
-		},
-		dataURL: function(rawData){
-			return 'data:image/gif;base64,' + rawData;
-		},
-		binaryURL: function(data) {
-			window.URL = window.URL || window.webkitURL;
-			var blob = new Blob([data], {type: 'image/gif'});
-			return window.URL.createObjectURL(blob);
-		}
-	};
-
-	this.frames = [];
-	this.delay = 200;
-	var self = this;
-
-	this.update_progress = function(progress){
-		console.log('Progress: ' + progress);
-	};
-
-	this.set_delay = function(new_delay){
-		this.delay = new_delay;
-	}
-
-	this.add_frame = function(canvas){
-		console.log(canvas);
-		var context = canvas.getContext('2d');
-		this.frames.push(context.getImageData(0, 0, canvas.height, canvas.width));
-	}
-
-	this.done = function(data_callback, error_callback){
-
-		var gifWorker = new Worker("js/gif-libs/omggif-worker.js");
-		this.gifWorker = gifWorker;
-
-		gifWorker.addEventListener('message', function (e) {
-			if (e.data.type === "progress") {
-				// Percent done, 0.0-0.1
-				self.update_progress(e.data.data);
-			} else if (e.data.type === "gif") {
-				var info = e.data;
-				info.binaryURL = self.utils.binaryURL( e.data.data );
-				info.rawDataURL = self.utils.rawDataURL( e.data.data );
-				info.dataURL = self.utils.dataURL( info.rawDataURL );
-				data_callback(info);
-			}
-		}, false);
-
-		gifWorker.addEventListener('error', function (e) {
-			error_callback(e);
-			gifWorker.terminate();
-		}, false);
-
-		gifWorker.postMessage({
-			frames: this.frames,
-			delay: this.delay,
-			matte: [255, 255, 255],
-			transparent: [0, 0, 0]
-		});
-	}
 }
