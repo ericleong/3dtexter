@@ -56,7 +56,7 @@ $(document).ready( function() {
 		gif.on('finished', function(blob, data) {
 			$("#gif").attr("src", URL.createObjectURL(blob));
 
-			$("#render_text").text("Render GIF");
+			$("#render_text").text("Create GIF");
 			$("#progress").hide();
 
 			rendering = false;
