@@ -118,7 +118,7 @@ button:focus, button:hover {
 }
 #top {
 	height: 60px;
-	width: 800px;
+	width: 100%;
 }
 #header {
 	width: 300px;
@@ -241,24 +241,23 @@ a {
 	cursor: pointer;
 	display: inline-block;
 	background-color: #34495e;
+	position: relative;
+}
+#render_text {
+	opacity: 0.99;
+}
+#progress {
+	width: 0%;
+	height: 100%;
+	background-color: #B9634C;
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 #render:hover, .share:hover {
 	background-color: #7f8c8d;
-}
-.ui-progressbar {
-	position: relative;
-	margin-bottom: 16px;
-}
-.progress-label {
-	position: absolute;
-	left: 45%;
-	top: 4px;
-	font-weight: bold;
-}
-
-#progressbar .ui-progressbar-value {
-	background-color:  #34495e;
 }
 
 #gif {

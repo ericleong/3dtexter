@@ -1,9 +1,3 @@
-
-
-function $id(nm){
-	return document.getElementById(nm);
-}
-
 function ThreeDTexter(){
 
 	this.api = {version: 0.1};
@@ -24,11 +18,11 @@ function ThreeDTexter(){
 				bevelThickness: 4,
 				bevelSize: 2,
 				bevelEnabled: false,
-				font: "helvetiker",
+				font: 'helvetiker',
 				weight: 'normal',
 				style: 'normal',
-				textColor: 0xFF0000,
-				sideColor: 0x0000FF
+				textColor: 0x3f6375,
+				sideColor: 0xb85dd4
 			}
 		},
 		wavePosition: 0,
@@ -37,7 +31,7 @@ function ThreeDTexter(){
 		rotating: false,
 		numFrames: 47,
 		delay: 42,
-		axis: "wave"
+		axis: 'wave'
 	};
 
 	var exports = {};
@@ -63,12 +57,6 @@ function ThreeDTexter(){
 			}
 		}
 
-		/*
-		var textShapes = new THREE.FontUtils.generateShapes( text, opts.text.options );
-
-		var text3d = new THREE.ExtrudeGeometry( textShapes, opts.text.options );
-		*/
-
 		// material
 		this.makeMaterial();
 
@@ -76,7 +64,7 @@ function ThreeDTexter(){
 		var material = new THREE.MeshFaceMaterial(materials);
 
 		// text
-		if (opts.axis == "wave" || opts.axis == "spin") {
+		if (opts.axis == 'wave' || opts.axis == 'spin') {
 			var width = 0;
 			var text3d = new THREE.Object3D();
 
@@ -155,9 +143,6 @@ function ThreeDTexter(){
 	};
 
 	this.makeMaterial = function(){
-		opts.text.options.textColor = parseInt($id('primary-color').value.substr(1), 16);
-		opts.text.options.sideColor = parseInt($id('secondary-color').value.substr(1), 16);
-
 		opts.text.options.textMaterial = new THREE.MeshBasicMaterial({
 			color: opts.text.options.textColor,
 			shading: THREE.SmoothShading,
@@ -171,24 +156,24 @@ function ThreeDTexter(){
 	};
 
 	this.setAxis = function(axis) {
-		if (axis == "x") {
+		if (axis == 'x') {
 			opts.camera.position.set(0, 0, opts.width);
 
 			opts.mesh.position.y = -opts.text.options.size / 2;
 			opts.mesh.position.z = -opts.text.options.height / 2;
-		} else if (axis == "y") {
+		} else if (axis == 'y') {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			opts.mesh.position.y = 0;
 			opts.mesh.position.z = -opts.text.options.height / 2;
 
-		} else if (axis == "wave") {
+		} else if (axis == 'wave') {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			for (var i = 0; i < opts.mesh.children.length; i++) {
 				opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
 			}
-		} else if (axis == "spin") {
+		} else if (axis == 'spin') {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
 			for (var i = 0; i < opts.mesh.children.length; i++) {
@@ -215,18 +200,8 @@ function ThreeDTexter(){
 		opts.container.appendChild( opts.renderer.domElement );
 
 	};
-
-	this.bindEvents = function(){
-
-		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-		document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-		document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-		window.addEventListener( 'resize', onWindowResize, false );
-
-	};
 	
 	var render = this.render = function(){
-		// opts.group.rotation.y += ( opts.targetRotation - opts.group.rotation.y ) * 0.05;
 		opts.renderer.render( opts.scene, opts.camera );
 	};
 
@@ -234,17 +209,17 @@ function ThreeDTexter(){
 
 		if (opts.rotating) {
 			requestAnimationFrame(animate);
-			if (opts.axis == "x") {
+			if (opts.axis == 'x') {
 				opts.group.rotation.x += opts.rotationRate;
-			} else if (opts.axis == "y") {
+			} else if (opts.axis == 'y') {
 				opts.group.rotation.y += opts.rotationRate;
-			} else if (opts.axis == "wave") {
+			} else if (opts.axis == 'wave') {
 				opts.wavePosition += opts.rotationRate;
 
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
 				}
-			} else if (opts.axis == "spin") {
+			} else if (opts.axis == 'spin') {
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					var width = 50;
 					var x = opts.mesh.children[i].position.x;
@@ -258,7 +233,7 @@ function ThreeDTexter(){
 	};
 
 
-	this.api.capture = function(gif){
+	this.api.capture = function(gif, progress){
 		var wasAnimating = opts.rotating;
 
 		self.stop();
@@ -267,6 +242,17 @@ function ThreeDTexter(){
 		opts.mesh.rotation.y = 0;
 
 		opts.wavePosition = 0;
+		if (opts.axis == 'wave') {
+			for (var i = 0; i < opts.mesh.children.length; i++) {
+				opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
+			}
+		} else if (opts.axis == 'spin') {
+			for (var i = 0; i < opts.mesh.children.length; i++) {
+				opts.mesh.children[i].rotation.y = 0;
+			}
+		}
+
+		render();
 
 		var numFrames = opts.numFrames;
 		var dAngle = 2 * Math.PI / (numFrames + 1);
@@ -277,23 +263,26 @@ function ThreeDTexter(){
 			console.log('capturing frame: ' + (opts.numFrames - numFrames));
 			gif.addFrame(canvas, {copy: true, delay: opts.delay});
 		
-			if (opts.axis == "x") {
+			if (opts.axis == 'x') {
 				opts.group.rotation.x += dAngle;
-			} else if (opts.axis == "y") {
+			} else if (opts.axis == 'y') {
 				opts.group.rotation.y += dAngle;
-			} else if (opts.axis == "wave") {
+			} else if (opts.axis == 'wave') {
 				opts.wavePosition += dAngle;
 
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
 				}
-			} else if (opts.axis == "spin") {
+			} else if (opts.axis == 'spin') {
 				for (var i = 0; i < opts.mesh.children.length; i++) {
 					opts.mesh.children[i].rotation.y += dAngle;
 				}
 			}
 
 			render();
+			if (progress) {
+				progress((opts.numFrames - numFrames + 1) / (opts.numFrames + 1));
+			}
 
 			setTimeout(function(){
 				if (numFrames-- > 0){
@@ -347,6 +336,10 @@ function ThreeDTexter(){
 	}
 	this.api.getTextOptions = function(){
 		return self.opts.text.options;
+	}
+	this.api.setColor = function(front, side) {
+		opts.text.options.textColor = front;
+		opts.text.options.sideColor = side;
 	}
 	this.api.toggleAnimation = function() {
 		opts.rotating = !opts.rotating;

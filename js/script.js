@@ -24,6 +24,10 @@ $(document).ready( function() {
 					log = hex ? hex : 'transparent';
 					if( opacity ) log += ', ' + opacity;
 					div_element.css('background-color', log);
+
+					window.texter.api.setColor(
+						parseInt($id('primary-color').value.substr(1), 16), 
+						parseInt($id('secondary-color').value.substr(1), 16));
 					window.texter.api.setText(inputText.value);
 				} catch(e) {}
 			},
@@ -38,21 +42,9 @@ $(document).ready( function() {
 			return;
 		}
 
+		$("#progress").show();
+		$("#render_text").text("Rendering");
 		rendering = true;
-
-		var progressbar = $( "#progressbar" );
-		
-		progressbar.progressbar({
-			value: false,
-			change: function() {
-				var progress = 0;
-				if (progressbar.progressbar("value")) {
-					progress = Math.ceil(progressbar.progressbar("value"));
-				}
-
-				$("#render").text(progress + "%" );
-			}
-		});
 
 		var gif = new GIF({
 			workers: 4,
@@ -63,16 +55,24 @@ $(document).ready( function() {
 			
 		gif.on('finished', function(blob, data) {
 			$("#gif").attr("src", URL.createObjectURL(blob));
-			$("#render").text("Render GIF");
-			progressbar.hide();
+
+			$("#render_text").text("Render GIF");
+			$("#progress").hide();
+
 			rendering = false;
 		});
 
 		gif.on('progress', function(progress) {
-			$("#progressbar").progressbar("value", progress * 100);
+			var p = progress * 50 + 50;
+			$("#progress").css("width", p + "%");
+			$("#render_text").text(Math.ceil(p) + "%");
 		})
 
-		window.texter.api.capture(gif);
+		window.texter.api.capture(gif, function(progress) {
+			var p = progress * 50;
+			$("#progress").css("width", p + "%");
+			$("#render_text").text(Math.ceil(p) + "%");	
+		});
 	});
 
 	window.texter.api.toggleAnimation();
@@ -80,9 +80,6 @@ $(document).ready( function() {
 });
 
 window.texter = new ThreeDTexter();
-texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
-	color: '#eee' 
-}));
 
 function $id(nm){
 	return document.getElementById(nm);
