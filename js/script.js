@@ -65,7 +65,7 @@ $(document).ready( function() {
 			$("#gif").attr("src", URL.createObjectURL(blob));
 			$("#render").text("Render GIF");
 			progressbar.hide();
-			rendering = true;
+			rendering = false;
 		});
 
 		gif.on('progress', function(progress) {
