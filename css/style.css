@@ -266,3 +266,51 @@ a {
 	margin-bottom: 16px;
 	background-color: white;
 }
+
+@media (max-width: 800px) {
+	#main {
+		width: 600px;
+	}
+
+	.preview {
+		height: 225px;
+	}
+}
+
+@media (max-width: 400px) {
+	#main {
+		width: 320px;
+	}
+
+	.preview {
+		height: 120px;
+	}
+
+	.text {
+		height: 60px;
+		font-size: 30px;
+		line-height: 60px;
+	}
+
+	.font {
+		height: 60px;
+	}
+
+	.font_title {
+		display: none;
+	}
+
+	#input_text input {
+		width: 70%;
+		font-size: 24px;
+	}
+
+	#input_text button {
+		width: 30%;
+		font-size: 24px;
+	}
+
+	#axis button {
+		font-size: 24px;
+	}
+}

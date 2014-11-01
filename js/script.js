@@ -79,7 +79,7 @@ $(document).ready( function() {
 	start.innerHTML = "stop";
 });
 
-window.texter = new ThreeDTexter();
+window.texter = new ThreeDTexter($("#text_container").width(), $("#text_container").width() * 3 / 8);
 
 function $id(nm){
 	return document.getElementById(nm);

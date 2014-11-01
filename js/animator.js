@@ -1,4 +1,4 @@
-function ThreeDTexter(){
+function ThreeDTexter(canvasWidth, canvasHeight){
 
 	this.api = {version: 0.1};
 
@@ -195,7 +195,7 @@ function ThreeDTexter(){
 			alpha: true,
 			preserveDrawingBuffer: true
 		});
-		opts.renderer.setSize( 800, 300 );
+		opts.renderer.setSize(canvasWidth, canvasHeight);
 
 		opts.container.appendChild( opts.renderer.domElement );
 
@@ -221,9 +221,6 @@ function ThreeDTexter(){
 				}
 			} else if (opts.axis == 'spin') {
 				for (var i = 0; i < opts.mesh.children.length; i++) {
-					var width = 50;
-					var x = opts.mesh.children[i].position.x;
-					var z = opts.mesh.children[i].position.z;
 					opts.mesh.children[i].rotation.y += opts.rotationRate;
 				}
 			}
