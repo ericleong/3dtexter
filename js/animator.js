@@ -167,8 +167,6 @@ function ThreeDTexter(){
 
 			opts.mesh.rotation.x = 0;
 			opts.mesh.rotation.y = Math.PI * 2;
-
-			opts.axis = "x";
 		} else if (axis == "y") {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
@@ -177,8 +175,6 @@ function ThreeDTexter(){
 
 			opts.mesh.rotation.x = Math.PI * 2;
 			opts.mesh.rotation.y = 0;
-
-			opts.axis = "y";
 		} else if (axis == "wave") {
 			opts.camera.position.set(0, opts.text.options.size / 2, opts.width);
 
@@ -189,10 +185,7 @@ function ThreeDTexter(){
 
 			for (var i = 0; i < opts.mesh.children.length; i++) {
 				opts.mesh.children[i].position.y = opts.text.options.size * Math.sin(opts.wavePosition + opts.waveAngle * i);
-				// opts.mesh.children[i].rotation.y += opts.rotationRate;
 			}
-
-			opts.axis = "wave";
 		}
 	}
 
@@ -229,7 +222,7 @@ function ThreeDTexter(){
 	var animate = this.animate = function(){
 
 		if (opts.rotating) {
-			requestAnimationFrame( animate );
+			requestAnimationFrame(animate);
 			if (opts.axis == "x") {
 				opts.group.rotation.x += opts.rotationRate;
 			} else if (opts.axis == "y") {
@@ -306,7 +299,7 @@ function ThreeDTexter(){
 			self.drawTextInternal(text, options);
 			opts.group.add(opts.text.canvas);
 		}
-		self.render();
+		// self.render();
 	}
 	this.api.setTextOption = function(option, value){
 		self.opts.text.options[option] = value;
@@ -323,21 +316,14 @@ function ThreeDTexter(){
 		if (!opts.rotating) {
 			self.stop();
 		} else {
-			self.animate();
+			// self.animate();
 		}
 	}
 	this.api.isAnimating = function() {
 		return opts.rotating;
 	}
 	this.api.setAxis = function(axis) {
-		if (opts.rotating) {
-			self.stop();
-			self.setAxis(axis);
-			self.api.toggleAnimation();
-		} else {
-			self.setAxis(axis);
-			self.render();
-		}
+		opts.axis = axis;
 	}
 
 	return self;
