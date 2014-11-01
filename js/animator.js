@@ -34,6 +34,8 @@ function ThreeDTexter(){
 		waveAngle: Math.PI / 6,
 		rotationRate: Math.PI / 60,
 		rotating: false,
+		numFrames: 47,
+		delay: 42,
 		axis: "y"
 	};
 
@@ -198,6 +200,7 @@ function ThreeDTexter(){
 		opts.scene.add( opts.group );
 
 		opts.renderer = new THREE.WebGLRenderer({
+			alpha: true,
 			preserveDrawingBuffer: true
 		});
 		opts.renderer.setSize( 800, 300 );
@@ -246,15 +249,14 @@ function ThreeDTexter(){
 
 		self.stop();
 
-		var numFrames = 19;
-		var delay = 100;
+		var numFrames = opts.numFrames;
 		var dAngle = 2 * Math.PI / (numFrames + 1);
 
 		var canvas = document.getElementsByTagName('canvas')[0];
 
 		function run_capture(){
-			console.log('capturing frame: ' + (19 - numFrames));
-			gif.addFrame(canvas, {copy: true, delay: delay});
+			console.log('capturing frame: ' + (opts.numFrames - numFrames));
+			gif.addFrame(canvas, {copy: true, delay: opts.delay});
 		
 			if (opts.axis == "x") {
 				opts.group.rotation.x += dAngle;
@@ -280,7 +282,7 @@ function ThreeDTexter(){
 
 					gif.render();
 				}
-			}, delay);
+			}, opts.delay);
 		}
 
 		run_capture();
@@ -311,7 +313,7 @@ function ThreeDTexter(){
 			self.drawTextInternal(text, options);
 			opts.group.add(opts.text.canvas);
 		}
-		// self.render();
+		self.render();
 	}
 	this.api.setTextOption = function(option, value){
 		self.opts.text.options[option] = value;
