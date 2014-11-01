@@ -53,7 +53,12 @@ $(document).ready( function() {
 		});
 			
 		gif.on('finished', function(blob, data) {
-			$("#gif").attr("src", URL.createObjectURL(blob));
+			var url = URL.createObjectURL(blob);
+
+			$("#gif").attr("src", url);
+			$("#download").attr("href", url);
+			$("#download").attr("download", inputText.value);
+			$("#download").css("display", "block");
 
 			$("#render_text").text("Create GIF");
 			$("#progress").hide();
