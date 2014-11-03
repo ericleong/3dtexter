@@ -1,9 +1,8 @@
-function ThreeDTexter(canvasWidth, canvasHeight){
+function ThreeDTexter(canvas){
 
 	this.api = {version: 0.1};
 
 	var opts = this.opts = {
-		container: document.getElementById('text_container'),
 		camera: null,
 		group: null,
 		scene:  null,
@@ -187,18 +186,17 @@ function ThreeDTexter(canvasWidth, canvasHeight){
 	this.setupCanvas = function(){
 
 		opts.group = new THREE.Object3D();
-		opts.group.add( opts.text.canvas );
 
-		opts.scene.add( opts.group );
+		opts.group.add(opts.text.canvas);
+		opts.scene.add(opts.group);
+
+		opts.canvas = canvas;
 
 		opts.renderer = new THREE.WebGLRenderer({
+			canvas: canvas,
 			alpha: true,
 			preserveDrawingBuffer: true
 		});
-		opts.renderer.setSize(canvasWidth, canvasHeight);
-
-		opts.container.appendChild( opts.renderer.domElement );
-
 	};
 	
 	var render = this.render = function(){
@@ -254,11 +252,9 @@ function ThreeDTexter(canvasWidth, canvasHeight){
 		var numFrames = opts.numFrames;
 		var dAngle = 2 * Math.PI / (numFrames + 1);
 
-		var canvas = document.getElementsByTagName('canvas')[0];
-
 		function run_capture(){
 			console.log('capturing frame: ' + (opts.numFrames - numFrames));
-			gif.addFrame(canvas, {copy: true, delay: opts.delay});
+			gif.addFrame(opts.canvas, {copy: true, delay: opts.delay});
 		
 			if (opts.axis == 'x') {
 				opts.group.rotation.x += dAngle;

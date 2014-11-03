@@ -1,3 +1,5 @@
+var texter = new ThreeDTexter($('#text_container')[0]);
+
 $(document).ready( function() {
 			
 	$('.demo').each( function() {
@@ -25,9 +27,9 @@ $(document).ready( function() {
 					if( opacity ) log += ', ' + opacity;
 					div_element.css('background-color', log);
 
-					window.texter.api.setColor(
-						parseInt($id('primary-color').value.substr(1), 16), 
-						parseInt($id('secondary-color').value.substr(1), 16));
+					texter.api.setColor(
+						parseInt($('#primary-color').val().substr(1), 16), 
+						parseInt($('#secondary-color').val().substr(1), 16));
 				} catch(e) {}
 			},
 			theme: 'default'
@@ -41,8 +43,8 @@ $(document).ready( function() {
 			return;
 		}
 
-		$("#progress").show();
-		$("#render_text").text("Rendering");
+		$('#progress').show();
+		$('#render_text').text('Rendering');
 		rendering = true;
 
 		var gif = new GIF({
@@ -55,84 +57,61 @@ $(document).ready( function() {
 		gif.on('finished', function(blob, data) {
 			var url = URL.createObjectURL(blob);
 
-			$("#gif").attr("src", url);
-			$("#download").attr("href", url);
-			$("#download").attr("download", inputText.value);
-			$("#download").css("display", "block");
+			$('#gif').attr('src', url);
+			$('#download').attr('href', url);
+			$('#download').attr('download', $('#text').val());
+			$('#download').css('display', 'block');
 
-			$("#render_text").text("Create GIF");
-			$("#progress").hide();
+			$('#render_text').text('Create GIF');
+			$('#progress').hide();
 
 			rendering = false;
 		});
 
 		gif.on('progress', function(progress) {
 			var p = progress * 50 + 50;
-			$("#progress").css("width", p + "%");
-			$("#render_text").text(Math.ceil(p) + "%");
+			$('#progress').css('width', p + '%');
+			$('#render_text').text(Math.ceil(p) + '%');
 		})
 
-		window.texter.api.capture(gif, function(progress) {
+		texter.api.capture(gif, function(progress) {
 			var p = progress * 50;
-			$("#progress").css("width", p + "%");
-			$("#render_text").text(Math.ceil(p) + "%");	
+			$('#progress').css('width', p + '%');
+			$('#render_text').text(Math.ceil(p) + '%');	
 		});
 	});
 
-	window.texter.api.toggleAnimation();
-	start.innerHTML = "stop";
+	texter.api.toggleAnimation();
+	start.innerHTML = 'stop';
 });
 
-window.texter = new ThreeDTexter($("#text_container").width(), $("#text_container").width() * 3 / 8);
+var text = 'hello world';
 
-function $id(nm){
-	return document.getElementById(nm);
-}
-
-var inputText = document.getElementById('text');
-var text = "hello world";
-
-function update_text(){
-	if (text != inputText.value) {
-		text = inputText.value;
-		window.texter.api.setText(text);
+var update_text = function(){
+	if (text != $('#text').val()) {
+		text = $('#text').val();
+		texter.api.setText(text);
 	}
 }
 
-inputText.onkeyup = update_text;
+$('#text').on('keyup', update_text);
 
-var start = document.getElementById('start');
+$('.font').on('click', function(evt){
+	$('.font').removeClass('selected');
 
-start.onclick = function() {
-	window.texter.api.toggleAnimation();
+	texter.api.setTextOption('font', $(this).attributes['data-font'].value);
+	texter.api.setTextOption('weight', $(this).attributes['data-bold'] ? 'bold' : 'normal');
+	texter.api.setText($('#text').val());
+	$(this).classList.add('selected');
+	update_text();
+});
 
-	if (window.texter.api.isAnimating()) {
-		start.innerHTML = "stop";
-	} else {
-		start.innerHTML = "start";
+$('.font').each(function() {
+	if (this.classList.contains('selected')){
+		texter.api.setTextOption('font', this.attributes['data-font'].value);
+		texter.api.setTextOption('weight', this.attributes['data-bold'] ? 'bold' : 'normal');
 	}
-}
-
-var font_selects = document.getElementsByClassName('font');
-for (var i = 0; i < font_selects.length; i++){
-	(function(text_font){
-		text_font.addEventListener('click', function(evt){
-			window.texter.api.setText(inputText.value);
-			for (var i = 0; i < font_selects.length; i++){
-				font_selects[i].className = font_selects[i].className.replace(' selected', '');
-			}
-			window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
-			window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
-			window.texter.api.setText(inputText.value);
-			this.className += ' selected';
-			update_text();
-		});
-		if (text_font.className.indexOf('selected') !== -1){
-			window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
-			window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
-		}
-	})(font_selects[i]);
-}
+});
 
 var unselect = function() {
 	var selected = $('button.selected').each(function() {
@@ -140,46 +119,56 @@ var unselect = function() {
 	});
 }
 
-$id('axis_x').addEventListener('click', function(evt){
-	evt.preventDefault();
+$('#start').on('click', function(evt) {
+	texter.api.toggleAnimation();
 
-	if (!this.classList.contains('selected')) {
-		unselect();
-		this.classList.add('selected');
-		window.texter.api.setAxis("x");
-		window.texter.api.setText(inputText.value);
+	if (texter.api.isAnimating()) {
+		start.innerHTML = 'stop';
+	} else {
+		start.innerHTML = 'start';
 	}
 });
 
-$id('axis_y').addEventListener('click', function(evt){
+$('#axis_x').on('click', function(evt){
 	evt.preventDefault();
 
 	if (!this.classList.contains('selected')) {
 		unselect();
 		this.classList.add('selected');
-		window.texter.api.setAxis("y");
-		window.texter.api.setText(inputText.value);
+		texter.api.setAxis('x');
+		texter.api.setText($('#text').val());
 	}
 });
 
-$id('spin').addEventListener('click', function(evt){
+$('#axis_y').on('click', function(evt){
 	evt.preventDefault();
 
 	if (!this.classList.contains('selected')) {
 		unselect();
 		this.classList.add('selected');
-		window.texter.api.setAxis("spin");
-		window.texter.api.setText(inputText.value);
+		texter.api.setAxis('y');
+		texter.api.setText($('#text').val());
 	}
 });
 
-$id('wave').addEventListener('click', function(evt){
+$('#spin').on('click', function(evt){
 	evt.preventDefault();
 
 	if (!this.classList.contains('selected')) {
 		unselect();
 		this.classList.add('selected');
-		window.texter.api.setAxis("wave");
-		window.texter.api.setText(inputText.value);
+		texter.api.setAxis('spin');
+		texter.api.setText($('#text').val());
+	}
+});
+
+$('#wave').on('click', function(evt){
+	evt.preventDefault();
+
+	if (!this.classList.contains('selected')) {
+		unselect();
+		this.classList.add('selected');
+		texter.api.setAxis('wave');
+		texter.api.setText($('#text').val());
 	}
 });

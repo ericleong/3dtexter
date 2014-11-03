@@ -9,6 +9,10 @@ html, body {
 	width: 800px;
 }
 
+#text_container {
+	width: 100%;
+}
+
 .preview {
 	background-color: white;
 	height: 300px;
