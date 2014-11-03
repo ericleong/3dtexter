@@ -99,10 +99,10 @@ $('#text').on('keyup', update_text);
 $('.font').on('click', function(evt){
 	$('.font').removeClass('selected');
 
-	texter.api.setTextOption('font', $(this).attributes['data-font'].value);
-	texter.api.setTextOption('weight', $(this).attributes['data-bold'] ? 'bold' : 'normal');
+	texter.api.setTextOption('font', this.attributes['data-font'].value);
+	texter.api.setTextOption('weight', this.attributes['data-bold'] ? 'bold' : 'normal');
 	texter.api.setText($('#text').val());
-	$(this).classList.add('selected');
+	this.classList.add('selected');
 	update_text();
 });
 
