@@ -355,6 +355,10 @@ a {
 	.preview {
 		height: 225px;
 	}
+
+	.form-group input[type="text"] {
+		font-size: 24px;
+	}
 }
 
 @media (max-width: 400px) {
@@ -383,6 +387,12 @@ a {
 	#input_text input {
 		width: 70%;
 		font-size: 24px;
+	}
+
+	.form-group {
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 15px;
 	}
 
 	#input_text button {
