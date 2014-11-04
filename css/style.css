@@ -237,16 +237,13 @@ a {
 .form-group {
 	 font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	 height: 200px;
-	 width: 49%;
+	 width: 32%;
+	 margin-left: 2%;
 	 display: inline-block;
 	 position: relative;
 }
-.form-group#primary {
-	background-color: #3f6375;
-	margin-right: 2%;
-}
-.form-group#secondary {
-	background-color: #b85dd4;
+.form-group:first-child {
+	margin-left: 0;
 }
 .form-group label {
 	width: 100%;
@@ -255,7 +252,8 @@ a {
 .form-group input {
 	position: relative;
 	z-index: 1;
-
+}
+.form-group input[type="text"] {
 	background-color: rgba(0, 0, 0, 0);
 	border: 0;
 	color: white;
@@ -263,6 +261,10 @@ a {
 	width: 100%;
 	display: block;
 	height: 100%;
+	outline: 0;
+}
+.form-group input[type="checkbox"] {
+	float: right;
 	outline: 0;
 }
 .minicolors {
@@ -314,6 +316,7 @@ a {
 }
 
 #gif {
+	display: block;
 	width: 100%;
 	margin-top: 16px;
 	margin-bottom: 16px;

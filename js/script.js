@@ -1,20 +1,26 @@
 var texter = new ThreeDTexter($('#text_container')[0]);
 
 $(document).ready( function() {
+
+	var updateColor = function() {
+		try {
+			texter.api.setColor(
+				parseInt($('#primary-color').val().substr(1), 16),
+				parseInt($('#secondary-color').val().substr(1), 16),
+				parseInt($('#background-color').val().substr(1), 16),
+				$('#opaque').prop('checked'));
+		} catch(e) {
+			console.log(e);
+		}
+	};
 			
-	$('#colors input').each( function() {
-		$(this).minicolors({
-			change: function(hex, opacity) {
-				try {
-					texter.api.setColor(
-						parseInt($('#primary-color').val().substr(1), 16), 
-						parseInt($('#secondary-color').val().substr(1), 16));
-				} catch(e) {
-					console.log(e);
-				}
-			}
-		});
+	$('#colors input[type="text"]').minicolors({
+		change: function(hex, opacity) {
+			updateColor();
+		}
 	});
+
+	$('#opaque').change(updateColor);
 
 	var rendering = false;
 
@@ -27,12 +33,17 @@ $(document).ready( function() {
 		$('#render_text').text('Rendering');
 		rendering = true;
 
-		var gif = new GIF({
+		var gifOptions = {
 			workers: 4,
 			quality: 8,
-			workerScript: './js/gif-lib/gif.worker.js',
-			transparent: '#fff'
-		});
+			workerScript: './js/gif-lib/gif.worker.js'
+		};
+
+		if (!$('#opaque').prop('checked')) {
+			gifOptions.transparent = 0xffffff;
+		}
+
+		var gif = new GIF(gifOptions);
 			
 		gif.on('finished', function(blob, data) {
 			var url = URL.createObjectURL(blob);

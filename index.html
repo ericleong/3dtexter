@@ -65,11 +65,16 @@
 		<div id="colors">
 			<div class="form-group" id="primary">
 				<label for="primary-color">Primary Color</label>
-				<input id="primary-color" value="#3f6375" maxlength="7">
+				<input type="text" id="primary-color" value="#3f6375" maxlength="7">
 			</div>
 			<div class="form-group" id="secondary">
 				<label for="secondary-color">Secondary Color</label>
-				<input id="secondary-color" value="#b85dd4" maxlength="7">
+				<input type="text" id="secondary-color" value="#b85dd4" maxlength="7">
+			</div>
+			<div class="form-group" id="background">
+				<label for="background-color">Secondary Color</label>
+				<input type="checkbox" id="opaque" name="transparency" value="opaque" checked="true">
+				<input type="text" id="background-color" value="#ffffff" maxlength="7">
 			</div>
 		</div>
 		<button id="render"><span id="progress"></span><span id="render_text">Create GIF</span></button>

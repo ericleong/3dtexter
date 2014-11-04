@@ -330,7 +330,7 @@ function ThreeDTexter(canvas){
 	this.api.getTextOptions = function(){
 		return self.opts.text.options;
 	}
-	this.api.setColor = function(front, side) {
+	this.api.setColor = function(front, side, background, opaque) {
 		opts.text.options.textColor = front;
 		opts.text.options.sideColor = side;
 
@@ -342,6 +342,12 @@ function ThreeDTexter(canvas){
 				opts.mesh.children[i].material.materials[0].color.setHex(side);
 				opts.mesh.children[i].material.materials[1].color.setHex(front);
 			}
+		}
+
+		if (opaque) {
+			opts.renderer.setClearColor(background, 1);
+		} else {
+			opts.renderer.setClearColor(0xffffff, 0);
 		}
 
 		self.render();
