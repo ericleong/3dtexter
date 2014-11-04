@@ -11,7 +11,7 @@ function ThreeDTexter(canvas){
 			canvas: null,
 			options: {
 				size: 100,
-				height: 60,
+				height: 50,
 				hover: 10,
 				curveSegments: 5,
 				bevelThickness: 4,
