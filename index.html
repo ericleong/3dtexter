@@ -6,8 +6,8 @@
 	<title>3Dtexter</title>
 
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.minicolors.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
@@ -65,11 +65,11 @@
 		<div id="colors">
 			<div class="form-group" id="primary">
 				<label for="primary-color">Primary Color</label>
-				<input type="hidden" id="primary-color" class="demo" value="#3f6375">
+				<input id="primary-color" value="#3f6375" maxlength="7">
 			</div>
 			<div class="form-group" id="secondary">
 				<label for="secondary-color">Secondary Color</label>
-				<input type="hidden" id="secondary-color" class="demo" value="#b85dd4">
+				<input id="secondary-color" value="#b85dd4" maxlength="7">
 			</div>
 		</div>
 		<button id="render"><span id="progress"></span><span id="render_text">Create GIF</span></button>
@@ -93,7 +93,7 @@
 
 	<script src="js/animator.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="js/jquery.minicolors.js"></script>
+	<script src="js/jquery.minicolors.min.js"></script>
 	<script src="js/script.js"></script>
 </body>
 </html>
