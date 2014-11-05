@@ -39,13 +39,13 @@ function ThreeDTexter(canvas){
 		opts.camera = new THREE.PerspectiveCamera( 60, 2, 50, 2000 );
 		opts.camera.position.set( 0, 0, 500 );
 		opts.scene = new THREE.Scene();
-		// add subtle blue ambient lighting
-		// var ambientLight = new THREE.AmbientLight(0x000044);
-		// opts.scene.add(ambientLight);
-		// // directional lighting
-		// var directionalLight = new THREE.DirectionalLight(0xffffff);
-		// directionalLight.position.set(1.5, 1, 2).normalize();
-		// opts.scene.add(directionalLight);
+
+		var ambientLight = new THREE.AmbientLight(0xffffff);
+		opts.scene.add(ambientLight);
+
+		var dirLight = new THREE.DirectionalLight(0xffffff, 0.9);
+		dirLight.position.set(0.25, 1, 0).normalize();
+		opts.scene.add(dirLight);
 	}
 
 	this.drawTextInternal = function(text, text_options){
@@ -142,14 +142,20 @@ function ThreeDTexter(canvas){
 	};
 
 	this.makeMaterial = function(){
-		opts.text.options.textMaterial = new THREE.MeshBasicMaterial({
+		opts.text.options.textMaterial = new THREE.MeshPhongMaterial({
 			color: opts.text.options.textColor,
-			shading: THREE.SmoothShading,
+			shading: THREE.FlatShading,
+			specular: 0x222222,
+			shininess: 50,
+			ambient: opts.text.options.textColor,
 			overdraw: 0.4
 		});
-		opts.text.options.sideMaterial = new THREE.MeshBasicMaterial({
+		opts.text.options.sideMaterial = new THREE.MeshPhongMaterial({
 			color: opts.text.options.sideColor,
 			shading: THREE.SmoothShading,
+			specular: 0x222222,
+			shininess: 50,
+			ambient: opts.text.options.sideColor,
 			overdraw: 0.4
 		});
 	};
@@ -337,10 +343,14 @@ function ThreeDTexter(canvas){
 		if (opts.axis == 'x' || opts.axis == 'y') {
 			opts.mesh.material.materials[0].color.setHex(side);
 			opts.mesh.material.materials[1].color.setHex(front);
+			opts.mesh.material.materials[0].ambient.setHex(side);
+			opts.mesh.material.materials[1].ambient.setHex(front);
 		} else if (opts.axis == 'wave' || opts.axis == 'spin') {
 			for (var i = 0; i < opts.mesh.children.length; i++) {
 				opts.mesh.children[i].material.materials[0].color.setHex(side);
 				opts.mesh.children[i].material.materials[1].color.setHex(front);
+				opts.mesh.children[i].material.materials[0].ambient.setHex(side);
+				opts.mesh.children[i].material.materials[1].ambient.setHex(front);
 			}
 		}
 
