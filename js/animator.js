@@ -118,6 +118,34 @@ function ThreeDTexter(canvas){
 		} else {
 			var text3d = new THREE.TextGeometry(text, opts.text.options);
 			text3d.computeBoundingBox();
+			text3d.computeVertexNormals();
+
+			var triangleAreaHeuristics = 0.1 * ( opts.text.options.height * opts.text.options.size );
+
+			for ( var i = 0; i < text3d.faces.length; i ++ ) {
+
+				var face = text3d.faces[ i ];
+
+				if ( face.materialIndex == 1 ) {
+
+					for ( var j = 0; j < face.vertexNormals.length; j ++ ) {
+						face.vertexNormals[ j ].z = 0;
+						face.vertexNormals[ j ].normalize();
+					}
+
+					var va = text3d.vertices[ face.a ];
+					var vb = text3d.vertices[ face.b ];
+					var vc = text3d.vertices[ face.c ];
+
+					var s = THREE.GeometryUtils.triangleArea( va, vb, vc );
+
+					if ( s > triangleAreaHeuristics ) {
+						for ( var j = 0; j < face.vertexNormals.length; j ++ ) {
+							face.vertexNormals[ j ].copy( face.normal );
+						}
+					}
+				}
+			}
 
 			var centerOffset = -THREE.FontUtils.drawText(text).offset;
 
