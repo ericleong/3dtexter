@@ -78,16 +78,9 @@ $(document).ready( function() {
 	start.innerHTML = 'stop';
 });
 
-var text = 'hello world';
-
-var update_text = function(){
-	if (text != $('#text').val()) {
-		text = $('#text').val();
-		texter.api.setText(text);
-	}
-}
-
-$('#text').on('keyup', update_text);
+$('#text').on('keyup', function() {
+	texter.api.setText($('#text').val());
+});
 
 $('.font').on('click', function(evt){
 	$('.font').removeClass('selected');
@@ -96,7 +89,6 @@ $('.font').on('click', function(evt){
 	texter.api.setTextOption('weight', this.attributes['data-bold'] ? 'bold' : 'normal');
 	texter.api.setText($('#text').val());
 	this.classList.add('selected');
-	update_text();
 });
 
 $('.font').each(function() {
