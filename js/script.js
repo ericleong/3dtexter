@@ -1,3 +1,5 @@
+'use strict';
+
 var texter = new ThreeDTexter($('#text_container')[0]);
 
 $(document).ready( function() {

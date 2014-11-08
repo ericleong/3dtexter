@@ -1,3 +1,5 @@
+'use strict';
+
 function ThreeDTexter(canvas){
 
 	this.api = {version: 0.1};

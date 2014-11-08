@@ -366,6 +366,10 @@ a {
 		width: 320px;
 	}
 
+	#colors {
+		margin-bottom: 0;
+	}
+
 	.preview {
 		height: 120px;
 	}
@@ -391,6 +395,7 @@ a {
 
 	.form-group {
 		width: 100%;
+		height: 60px;
 		margin-left: 0;
 		margin-bottom: 15px;
 	}
