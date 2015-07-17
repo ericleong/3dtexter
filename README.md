@@ -1,3 +1,5 @@
+![giferator logo](icon/launcher-2x.png?raw=true)
+
 3dtexter
 ========
 
